@@ -6,7 +6,7 @@ $(document).ready(function () {
     })
 
     $('.date').datetimepicker({
-        format: 'DD/MM/YYYY',
+        format: 'DD-MM-YYYY',
         locale: 'en',
         icons: {
             up: 'fas fa-chevron-up',
@@ -17,7 +17,7 @@ $(document).ready(function () {
     })
 
     $('.datetime').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm:ss',
+        format: 'DD-MM-YYYY HH:mm:ss',
         locale: 'en',
         sideBySide: true,
         icons: {
@@ -63,9 +63,9 @@ $(document).ready(function () {
         }
     })
 
-    $('a[data-widget^="pushmenu"]').click(function () {
+    $('button.sidebar-toggler').click(function () {
         setTimeout(function() {
             $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
-        }, 350);
+        }, 275);
     })
 })
