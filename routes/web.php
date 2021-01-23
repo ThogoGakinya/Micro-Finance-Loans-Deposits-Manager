@@ -26,4 +26,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
 
+    // Accounts
+    Route::delete('accounts/destroy', 'AccountController@massDestroy')->name('accounts.massDestroy');
+    Route::resource('accounts', 'AccountController');
+
+    // Payments
+    Route::delete('payments/destroy', 'PaymentController@massDestroy')->name('payments.massDestroy');
+    Route::resource('payments', 'PaymentController');
 });
