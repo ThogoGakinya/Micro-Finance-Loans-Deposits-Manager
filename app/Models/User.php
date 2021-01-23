@@ -78,4 +78,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+    public function account()
+    {
+        return $this->belongsTo(Account::class, 'account_id');
+    }
 }
