@@ -8,18 +8,61 @@ use App\Models\Payment;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class PaymentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('payment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $payments = Payment::with(['account'])->get();
+        if ($request->ajax()) {
+            $query = Payment::with(['account'])->select(sprintf('%s.*', (new Payment)->table));
+            $table = Datatables::of($query);
+
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'payment_show';
+                $editGate      = 'payment_edit';
+                $deleteGate    = 'payment_delete';
+                $crudRoutePart = 'payments';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : "";
+            });
+            $table->addColumn('account_account_name', function ($row) {
+                return $row->account ? $row->account->account_name : '';
+            });
+
+            $table->editColumn('amount', function ($row) {
+                return $row->amount ? $row->amount : "";
+            });
+            $table->editColumn('month', function ($row) {
+                return $row->month ? $row->month : "";
+            });
+            $table->editColumn('year', function ($row) {
+                return $row->year ? $row->year : "";
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'account']);
+
+            return $table->make(true);
+        }
 
         $accounts = Account::get();
 
-        return view('admin.payments.index', compact('payments', 'accounts'));
+        return view('admin.payments.index', compact('accounts'));
     }
 
     public function create()
