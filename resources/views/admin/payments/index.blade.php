@@ -12,7 +12,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-Payment">
+                <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Payment">
                     <thead>
                     <tr>
                         <th width="10">
@@ -54,7 +54,7 @@
                         </td>
                     </tr>
                     </thead>
-                    <tbody>
+                   {{-- <tbody>
                     @foreach($payments as $key => $payment)
                         <tr data-entry-id="{{ $payment->id }}">
                             <td>
@@ -93,7 +93,7 @@
                             </td>
                         </tr>
                     @endforeach
-                    </tbody>
+                    </tbody>--}}
                 </table>
             </div>
         </div>
@@ -137,12 +137,27 @@
             dtButtons.push(deleteButton)
             @endcan
 
-            $.extend(true, $.fn.dataTable.defaults, {
+            let dtOverrideGlobals = {
+                buttons: dtButtons,
+                processing: true,
+                serverSide: true,
+                retrieve: true,
+                aaSorting: [],
+                ajax: "{{ route('admin.payments.index') }}",
+                columns: [
+                    {data: 'placeholder', name: 'placeholder'},
+                    {data: 'id', name: 'id'},
+                    {data: 'account_account_name', name: 'account.account_name'},
+                    {data: 'amount', name: 'amount'},
+                    {data: 'month', name: 'month'},
+                    {data: 'year', name: 'year'},
+                    {data: 'actions', name: '{{ trans('global.actions') }}'}
+                ],
                 orderCellsTop: true,
                 order: [[1, 'desc']],
-                pageLength: 25,
-            });
-            let table = $('.datatable-Payment:not(.ajaxTable)').DataTable({buttons: dtButtons})
+                pageLength: 100,
+            };
+            let table = $('.datatable-Payment').DataTable(dtOverrideGlobals);
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function (e) {
                 $($.fn.dataTable.tables(true)).DataTable()
                     .columns.adjust();
@@ -169,7 +184,7 @@
                     visibleColumnsIndexes.push(colIdx);
                 });
             })
-        })
+        });
 
     </script>
 @endsection

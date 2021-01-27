@@ -16,7 +16,7 @@
             </a>
         </li>
         <li class="c-sidebar-nav-item">
-            <a href="#" class="c-sidebar-nav-link">
+            <a href="{{ route("admin.accounts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/accounts") || request()->is("admin/accounts/*") ? "active" : "" }}">
                 <i class="fa-fw fas fa-user-friends c-sidebar-nav-icon">
 
                 </i>
@@ -24,7 +24,7 @@
             </a>
         </li>
         <li class="c-sidebar-nav-item">
-            <a href="#" class="c-sidebar-nav-link">
+            <a href="{{ route("admin.payments.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payments") || request()->is("admin/payments/*") ? "active" : "" }}">
                 <i class="fa-faw fas fa-credit-card  c-sidebar-nav-icon">
 
                 </i>
