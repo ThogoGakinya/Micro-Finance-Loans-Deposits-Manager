@@ -13,24 +13,27 @@ Route::get('/home', function () {
 Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
-    Route::get('/', 'HomeController@index')->name('home');
-    // Permissions
-    Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
-    Route::resource('permissions', 'PermissionsController');
+Route::get('/', 'HomeController@index')->name('home');
+// Permissions
+Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
+Route::resource('permissions', 'PermissionsController');
 
-    // Roles
-    Route::delete('roles/destroy', 'RolesController@massDestroy')->name('roles.massDestroy');
-    Route::resource('roles', 'RolesController');
+// Roles
+Route::delete('roles/destroy', 'RolesController@massDestroy')->name('roles.massDestroy');
+Route::resource('roles', 'RolesController');
 
-    // Users
-    Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
-    Route::resource('users', 'UsersController');
+// Users
+Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
+Route::resource('users', 'UsersController');
 
-    // Accounts
-    Route::delete('accounts/destroy', 'AccountController@massDestroy')->name('accounts.massDestroy');
-    Route::resource('accounts', 'AccountController');
+// Accounts
+Route::delete('accounts/destroy', 'AccountController@massDestroy')->name('accounts.massDestroy');
+Route::resource('accounts', 'AccountController');
 
-    // Payments
-    Route::delete('payments/destroy', 'PaymentController@massDestroy')->name('payments.massDestroy');
-    Route::resource('payments', 'PaymentController');
+// Payments
+Route::delete('payments/destroy', 'PaymentController@massDestroy')->name('payments.massDestroy');
+Route::resource('payments', 'PaymentController');
 });
+Route::post('/initiate-transaction',  'Admin\PaymentController@stkPush')->name('stk-initial');
+Route::get('/pay',  'Admin\PaymentController@getPaymentForm')->name('pay');
+Route::get('/confirmpayment', 'Admin\PaymentController@confirmPayment')->name('confirmpayment');

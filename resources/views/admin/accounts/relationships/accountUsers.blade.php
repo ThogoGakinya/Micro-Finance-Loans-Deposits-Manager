@@ -14,9 +14,7 @@
                 <table class=" table table-bordered table-striped table-hover datatable datatable-accountUsers">
                     <thead>
                     <tr>
-                        <th width="10">
-
-                        </th>
+                        <th></th>
                         <th>#</th>
                         <th>Name</th>
                         <th>Account Name</th>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Payment;
+use App\Models\MobilePayment;
+use App\Models\StkResponse;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -122,5 +124,101 @@ class PaymentController extends Controller
         Payment::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function stkPush(Request $request)
+    {
+        $amount = $request->amount;
+        $number = $request->number;
+        date_default_timezone_set('Africa/Nairobi');
+
+        # access token
+        $consumerKey = '4K1Aq2LGOCw5nQxUV60zLeONfmOwwuXw'; 
+        $consumerSecret = 'kscGMdGb89nQNhCt'; 
+        $headers = ['Content-Type:application/json; charset=utf8'];
+        $access_token_url = 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+        
+        $curl = curl_init($access_token_url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($curl, CURLOPT_HEADER, FALSE);
+        curl_setopt($curl, CURLOPT_USERPWD, $consumerKey.':'.$consumerSecret);
+        $result = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $result = json_decode($result);
+        $access_token = $result->access_token;  
+        //echo $access_token;
+        curl_close($curl);
+
+        
+        $BusinessShortCode = '215723';
+        $Passkey = '0b92f7580f273c1ed010675030514649f9ed75e6008d811e419064f21014f3d5';
+        $PartyA = $number; 
+        $PartyB = '218918';
+        $AccountReference = 'Inv 1';
+        $TransactionDesc = 'Payment trial';
+        $Amount = $amount;
+        $Timestamp = date('YmdHis');    
+        $Password = base64_encode($BusinessShortCode.$Passkey.$Timestamp);
+
+        $initiate_url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+
+        # callback url
+        $CallBackURL = 'https://www.kimfay.com/dev/callback_url.php';  
+
+        
+        # header for stk push
+        $stkheader = ['Content-Type:application/json','Authorization:Bearer '.$access_token];
+
+        # initiating the transaction
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $initiate_url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $stkheader); 
+
+        $curl_post_data = array(
+            'BusinessShortCode' => $BusinessShortCode,
+            'Password' => $Password,
+            'Timestamp' => $Timestamp,
+            'TransactionType' => 'CustomerBuyGoodsOnline',
+            'Amount' => $Amount,
+            'PartyA' => $PartyA,
+            'PartyB' => $PartyB,
+            'PhoneNumber' => $PartyA,
+            'CallBackURL' => $CallBackURL,
+            'AccountReference' => $AccountReference,
+            'TransactionDesc' => $TransactionDesc
+        );
+
+        $data_string = json_encode($curl_post_data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+        $curl_response = curl_exec($curl);
+        $response = json_decode($curl_response, true); 
+        $CheckoutRequestID = $response['CheckoutRequestID'];
+        $ResponseCode = $response['ResponseCode'];
+        $CustomerMessage = $response['CustomerMessage'];
+
+        return view('Admin.payments.create')->with('CheckoutRequestID',$CheckoutRequestID)
+                                         ->with('CustomerMessage',$CustomerMessage)
+                                         ->with('ResponseCode',$ResponseCode);
+       
+        
+    }
+
+    public function getPaymentForm()
+    {
+        $CheckoutRequestID = '';
+        $ResponseCode = 222;
+        $CustomerMessage = '';
+        return view('Admin.payments.create')->with('CheckoutRequestID',$CheckoutRequestID)
+                                         ->with('CustomerMessage',$CustomerMessage)
+                                         ->with('ResponseCode',$ResponseCode);
+    }
+    
+    public function confirmPayment(Request $request)
+    {
+        $data4 = StkResponse::where('CheckoutRequestID',$request->id)->first();
+        return response()->json($data4);
     }
 }

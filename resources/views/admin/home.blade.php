@@ -24,5 +24,4 @@
 @endsection
 @section('scripts')
     @parent
-
 @endsection
