@@ -144,6 +144,18 @@
     return true;
   }
 </script>
+
+<script type="text/javascript">
+    window.onload = function()
+    {
+        var button = document.getElementById('response').value;
+        if(button == 0)
+        {
+            document.getElementById('primary').click();
+        }
+    };
+</script>
+
 <script type="text/javascript">
 function complete()
 {
