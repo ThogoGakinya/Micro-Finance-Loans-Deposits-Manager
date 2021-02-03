@@ -1,9 +1,7 @@
-<div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show">
 
-    <div class="c-sidebar-brand d-md-down-none">
-        <a class="c-sidebar-brand-full h4" href="#">
-            MUCU
-        </a>
+<div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show">
+    <div class="c-sidebar-brand d-md-down-none" style="background-color:#367fa9;">
+            <h5>MUCUA WELFARE</h5>
     </div>
 
     <ul class="c-sidebar-nav">
