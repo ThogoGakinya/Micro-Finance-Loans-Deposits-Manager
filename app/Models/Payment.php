@@ -39,4 +39,13 @@ class Payment extends Model
     {
         return $this->belongsTo(Account::class, 'account_id');
     }
+
+    /**
+     * Model Observer for changes.
+     */
+    public static function boot()
+    {
+        parent::boot();
+        Payment::observe(new \App\Observers\PaymentActionObserver);
+    }
 }
