@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Mucu</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -22,23 +22,23 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+ 
     @yield('styles')
 </head>
 
 <body class="c-app">
 @include('partials.menu')
 <div class="c-wrapper">
-    <header class="c-header c-header-fixed px-3">
-        <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
+    <header class="c-header c-header-fixed px-3" style="background-color:#3c8dbc; height:45px; color:#ffffff;">
+        <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show" style="color:#fff;">
             <i class="fas fa-fw fa-bars"></i>
         </button>
 
-        <a class="c-header-brand d-lg-none" href="#">MUCU</a>
+        <a class="c-header-brand d-lg-none" href="#">MUCUA</a>
 
-        <button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button" data-target="#sidebar" data-class="c-sidebar-lg-show" responsive="true">
+        <button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button" data-target="#sidebar" data-class="c-sidebar-lg-show" responsive="true" style="color:#fff;">
             <i class="fas fa-fw fa-bars"></i>
         </button>
-
         <ul class="c-header-nav ml-auto">
             @if(count(config('panel.available_languages', [])) > 1)
                 <li class="c-header-nav-item dropdown d-md-down-none">
@@ -52,16 +52,26 @@
                     </div>
                 </li>
             @endif
-
-
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#" style="color:#fff;">
+                    {{strtoupper(auth()->user()->name)}}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-user mr-2"></i> Profile
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>  {{ trans('global.logout') }}
+                    </a>
+                    </div>
+                </li>
         </ul>
     </header>
 
-    <div class="c-body">
+    <div class="c-body" style="background-color:#f4f6f9;">
         <main class="c-main">
-
-
-            <div class="container-fluid">
+            <div class="container-fluid" style="margin-top:-20px;; padding-right: 8px;padding-left: 8px;">
                 @if(session('message'))
                     <div class="row mb-2">
                         <div class="col-lg-12">
@@ -79,16 +89,140 @@
                     </div>
                 @endif
                 @yield('content')
-
             </div>
-
-
         </main>
         <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
             {{ csrf_field() }}
         </form>
     </div>
 </div>
+<script type="text/javascript">
+  function numberValidator()
+  {
+    var div = $(this).parent().parent();
+    if(frm.amount.value=="")
+    {
+      event.preventDefault()
+      alert("Amount can not be empty");
+      frm.amount.focus();
+    }
+    if(isNaN(frm.amount.value))
+    {
+      event.preventDefault()
+      alert("Invalid Amount");
+      frm.amount.focus();
+      return false;
+    }
+    if(frm.amount.value < 1)
+    {
+      event.preventDefault()
+      alert("Invalid Amount");
+      frm.amount.focus();
+      return false;
+    }
+    if(isNaN(frm.number.value))
+    {
+      event.preventDefault()
+      alert("Invalid Phone Number");
+      frm.number.focus();
+      return false;
+    }
+    if(frm.number.value=="")
+    {
+      event.preventDefault()
+      alert("Phone number can not be empty");
+      frm.number.focus();
+    }
+    if((frm.number.value).length != 12)
+    {
+      event.preventDefault()
+      alert("Phone number length does not meet criteria");
+      frm.number.focus();
+      return false;
+    }
+    $('#loader').show();
+    return true;
+  }
+</script>
+
+<script type="text/javascript">
+    window.onload = function()
+    {
+        var button = document.getElementById('response').value;
+        if(button == 0)
+        {
+            document.getElementById('primary').click();
+        }
+    };
+</script>
+
+<script type="text/javascript">
+function complete()
+{
+  var CheckoutID = document.getElementById('CheckoutRequestID').value;
+
+        $.ajax({
+            type:'get',
+            url:'{!!URL::to("confirmpayment")!!}',
+            data:{'id':CheckoutID},
+
+            beforeSend: function(){
+              $('#first').hide();
+              $('#maq').hide();
+              $('#loader').show();
+            },
+            complete: function(){
+              $('#loader').hide();
+            },
+            success: function(data4){
+             if(Object.keys(data4).length === 0)
+             {
+                  var output = ""; 
+                      output += ` <div class="alert alert-warning alert-dismissible" >
+                                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                  <h5><i class="icon fas fa-info"></i> Alert</h5>
+                                  No Payment received yet ! Please keep clicking the complete button if you have received an M-PESA message.
+                                 </div>`;
+
+                  $("#results").html(output);
+             }
+             else
+             {
+              if(data4.ResultCode == 0)
+                {
+                      var output = ""; 
+                          output += ` <div class="alert alert-success alert-dismissible" >
+                                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                      <h5><i class="icon fas fa-check"></i> Success</h5>
+                                      Payment received successfully
+                                    </div>`;
+
+                      $("#results").html(output);
+                      $('#finish').show();
+                      $('#validate').hide();
+                }
+                else
+                {
+                      var output = ""; 
+                          output += '<div class="alert alert-danger alert-dismissible">';
+                          output += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+                          output += '<h5><i class="icon fas fa-info"></i> Alert</h5>';
+                          output +=  data4.ResultDesc;       
+                          output +=  '</div>';
+
+                      $("#results").html(output);
+                }
+             }
+             
+             
+            },
+            error:function()
+            {
+              $("#results").html("error");
+            }
+        });
+  }
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>

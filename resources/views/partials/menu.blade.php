@@ -1,9 +1,7 @@
-<div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show">
 
-    <div class="c-sidebar-brand d-md-down-none">
-        <a class="c-sidebar-brand-full h4" href="#">
-            MUCU
-        </a>
+<div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show">
+    <div class="c-sidebar-brand d-md-down-none" style="background-color:#367fa9;">
+            <h5>MUCUA WELFARE</h5>
     </div>
 
     <ul class="c-sidebar-nav">
@@ -17,9 +15,7 @@
         </li>
         <li class="c-sidebar-nav-item">
             <a href="{{ route("admin.accounts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/accounts") || request()->is("admin/accounts/*") ? "active" : "" }}">
-                <i class="fa-fw fas fa-user-friends c-sidebar-nav-icon">
-
-                </i>
+                <i class="fa-fw fas fa-user-friends c-sidebar-nav-icon"></i>
                 Accounts
             </a>
         </li>
