@@ -17,7 +17,7 @@
           </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-    
+
     <!-- Main content -->
           <section class="content">
             <div class="container-fluid winbox-white">
@@ -26,7 +26,7 @@
 
                                             <div class="row">
                                               <div class="col-lg-3 col-6">
-                                              
+
                                                 <div class="small-box bg-info">
                                                   <div class="inner">
                                                     <h4>Users Management</h4>
@@ -35,7 +35,7 @@
                                                   <div class="icon">
                                                   <i class="fa-fw fas fa-users c-sidebar-nav-icon"></i>
                                                   </div>
-                                                  
+
                                                   <a href="{{ route("admin.users.index") }}" class="small-box-footer">
                                                     View <i class="fas fa-arrow-circle-right"></i>
                                                   </a>
@@ -87,14 +87,14 @@
                                                 <div class="icon">
                                                 <i class="fa fa-plus"></i>
                                                 </div>
-                                                <a href="{{ url('/pay') }}" class="small-box-footer">
+                                                <a href="{{ route('admin.payments.pay') }}" class="small-box-footer">
                                                   Initiate <i class="fas fa-arrow-circle-right"></i>
                                                 </a>
                                               </div>
                                             </div>
                                             <!-- ./col -->
                                           </div>
-                                       
+
  <!---------------------------------------- end of page content---------------------------------------------------------------->
                  </div> <!-- end of tab-content-->
             </div><!--container-fluid -->
