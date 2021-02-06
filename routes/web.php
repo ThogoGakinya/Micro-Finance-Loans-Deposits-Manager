@@ -31,9 +31,12 @@ Route::delete('accounts/destroy', 'AccountController@massDestroy')->name('accoun
 Route::resource('accounts', 'AccountController');
 
 // Payments
+Route::post('payments/initiate-transaction',  'PaymentController@stkPush')->name('payments.stk-initial');
+Route::get('payments/pay',  'PaymentController@getPaymentForm')->name('payments.pay');
+Route::get('payments/confirmpayment', 'PaymentController@confirmPayment')->name('payments.confirmpayment');
 Route::delete('payments/destroy', 'PaymentController@massDestroy')->name('payments.massDestroy');
 Route::resource('payments', 'PaymentController');
 });
-Route::post('/initiate-transaction',  'Admin\PaymentController@stkPush')->name('stk-initial');
+/*Route::post('/initiate-transaction',  'Admin\PaymentController@stkPush')->name('stk-initial');
 Route::get('/pay',  'Admin\PaymentController@getPaymentForm')->name('pay');
-Route::get('/confirmpayment', 'Admin\PaymentController@confirmPayment')->name('confirmpayment');
+Route::get('/confirmpayment', 'Admin\PaymentController@confirmPayment')->name('confirmpayment');*/

@@ -17,7 +17,7 @@
           </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-    
+
     <!-- Main content -->
           <section class="content">
             <div class="container-fluid winbox-white">
@@ -26,7 +26,7 @@
                  <div class="tab-pane active" id="login_details">
                   <div class="panel panel-default">
                    <div class="panel-heading">
-                      <a href="{{route ('admin.home')}}" class="btn btn-default btn-xs" ><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a> 
+                      <a href="{{route ('admin.home')}}" class="btn btn-default btn-xs" ><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a>
                     </div>
                       <div class="row">
                         <div class="col-md-6">
@@ -39,10 +39,10 @@
                                 </h4>
                             </div>
                             <div class="card-body">
-                                <div class="card "> 
+                                <div class="card ">
                                       <div id="collapsePrimary" class="panel-collapse collapse in">
                                         <div class="card-body">
-                                            <form method="post"  name="frm"class="form-horizontal" action="{{route('stk-initial')}}" enctype="multipart/form-data">
+                                            <form method="post"  name="frm"class="form-horizontal" action="{{route('admin.payments.stk-initial')}}" enctype="multipart/form-data">
                                                 {{ csrf_field() }}
                                                 <div class="row">
                                                     <div class="col-md-4">
@@ -75,8 +75,8 @@
                                                         <input type="text" id="CheckoutRequestID" value="{{$CheckoutRequestID}}">
                                                         <marquee id="maq" scrollamount="1" behavior="alternate" style="color:red;"><strong>NOTE</strong> : If you dont receive an M-PESA prompt,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;your balance is insufficient for this transaction</marquee>
                                                         @endif
-                                                        
-                                                      
+
+
                                                 </div>
                                                 <hr/>
                                                 <div align="center">
@@ -87,7 +87,7 @@
                                                     @endif
                                                     <a class="btn btn-success" id="finish" style="display:none;" href="{{route('admin.payments.index')}}"><i class="fa fa-flag-checkered" aria-hidden="true"></i> Finish</a>
                                                 </div>
-                                                <hr/> 
+                                                <hr/>
                                             </form>
                                         </div>
                                       </div>
@@ -104,7 +104,7 @@
                                 </h4>
                             </div>
                             <div class="card-body">
-                              <div class="card "> 
+                              <div class="card ">
                                   <div id="collapseSecondary" class="panel-collapse collapse in">
                                     <div class="card-body">
                                       Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.

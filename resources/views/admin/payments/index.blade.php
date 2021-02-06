@@ -17,7 +17,7 @@
           </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-    
+
     <!-- Main content -->
           <section class="content">
             <div class="container-fluid winbox-white">
@@ -27,7 +27,7 @@
                             <div class="card-header">
                                 Payments List
                                 @can('payment_create')
-                                    <a class="btn btn-success float-right" href="{{ url('/pay') }}">
+                                    <a class="btn btn-success float-right" href="{{ route('admin.payments.pay') }}">
                                        <i class="fa fa-plus"></i> Make Payment
                                     </a>
                                 @endcan
@@ -120,7 +120,7 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>    
+                        </div>
  <!--------------------------------- Page content ends here---------------------------->
                  </div> <!-- end of tab-content-->
             </div><!--container-fluid -->
