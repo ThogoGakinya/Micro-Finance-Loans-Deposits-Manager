@@ -24,7 +24,7 @@ class CreateMobilePaymentsTable extends Migration
             $table->string('InvoiceNumber');
             $table->integer('OrgAccountBalance');
             $table->string('ThirdPartyTransID');
-            $table->integer('OrgAccountBalance');
+            //$table->integer('OrgAccountBalance');
             $table->integer('MSISDN');
             $table->longText('FirstName');
             $table->longText('MiddleName');
