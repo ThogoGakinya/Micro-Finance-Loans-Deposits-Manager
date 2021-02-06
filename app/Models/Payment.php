@@ -23,6 +23,7 @@ class Payment extends Model
         'account_id',
         'amount',
         'month',
+        'transaction_id',
         'year',
         'created_at',
         'updated_at',
