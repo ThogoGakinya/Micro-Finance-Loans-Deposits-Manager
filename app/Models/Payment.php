@@ -23,6 +23,7 @@ class Payment extends Model
         'account_id',
         'amount',
         'month',
+        'transaction_id',
         'year',
         'created_at',
         'updated_at',
@@ -37,5 +38,14 @@ class Payment extends Model
     public function account()
     {
         return $this->belongsTo(Account::class, 'account_id');
+    }
+
+    /**
+     * Model Observer for changes.
+     */
+    public static function boot()
+    {
+        parent::boot();
+        Payment::observe(new \App\Observers\PaymentActionObserver);
     }
 }
