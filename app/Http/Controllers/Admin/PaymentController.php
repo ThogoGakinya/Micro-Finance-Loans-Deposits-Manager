@@ -133,11 +133,11 @@ class PaymentController extends Controller
         date_default_timezone_set('Africa/Nairobi');
 
         # access token
-        $consumerKey = '4K1Aq2LGOCw5nQxUV60zLeONfmOwwuXw'; 
-        $consumerSecret = 'kscGMdGb89nQNhCt'; 
+        $consumerKey = '4K1Aq2LGOCw5nQxUV60zLeONfmOwwuXw';
+        $consumerSecret = 'kscGMdGb89nQNhCt';
         $headers = ['Content-Type:application/json; charset=utf8'];
         $access_token_url = 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
-        
+
         $curl = curl_init($access_token_url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
@@ -146,34 +146,34 @@ class PaymentController extends Controller
         $result = curl_exec($curl);
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $result = json_decode($result);
-        $access_token = $result->access_token;  
+        $access_token = $result->access_token;
         //echo $access_token;
         curl_close($curl);
 
-        
+
         $BusinessShortCode = '215723';
         $Passkey = '0b92f7580f273c1ed010675030514649f9ed75e6008d811e419064f21014f3d5';
-        $PartyA = $number; 
+        $PartyA = $number;
         $PartyB = '218918';
         $AccountReference = 'Inv 1';
         $TransactionDesc = 'Payment trial';
         $Amount = $amount;
-        $Timestamp = date('YmdHis');    
+        $Timestamp = date('YmdHis');
         $Password = base64_encode($BusinessShortCode.$Passkey.$Timestamp);
 
         $initiate_url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 
         # callback url
-        $CallBackURL = 'https://www.kimfay.com/dev/callback_url.php';  
+        $CallBackURL = 'https://www.kimfay.com/dev/callback_url.php';
 
-        
+
         # header for stk push
         $stkheader = ['Content-Type:application/json','Authorization:Bearer '.$access_token];
 
         # initiating the transaction
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $initiate_url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $stkheader); 
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $stkheader);
 
         $curl_post_data = array(
             'BusinessShortCode' => $BusinessShortCode,
@@ -194,16 +194,16 @@ class PaymentController extends Controller
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
         $curl_response = curl_exec($curl);
-        $response = json_decode($curl_response, true); 
+        $response = json_decode($curl_response, true);
         $CheckoutRequestID = $response['CheckoutRequestID'];
         $ResponseCode = $response['ResponseCode'];
         $CustomerMessage = $response['CustomerMessage'];
 
-        return view('Admin.payments.create')->with('CheckoutRequestID',$CheckoutRequestID)
+        return view('admin.payments.create')->with('CheckoutRequestID',$CheckoutRequestID)
                                          ->with('CustomerMessage',$CustomerMessage)
                                          ->with('ResponseCode',$ResponseCode);
-       
-        
+
+
     }
 
     public function getPaymentForm()
@@ -211,11 +211,11 @@ class PaymentController extends Controller
         $CheckoutRequestID = '';
         $ResponseCode = 222;
         $CustomerMessage = '';
-        return view('Admin.payments.create')->with('CheckoutRequestID',$CheckoutRequestID)
+        return view('admin.payments.create')->with('CheckoutRequestID',$CheckoutRequestID)
                                          ->with('CustomerMessage',$CustomerMessage)
                                          ->with('ResponseCode',$ResponseCode);
     }
-    
+
     public function confirmPayment(Request $request)
     {
         $data4 = StkResponse::where('CheckoutRequestID',$request->id)->first();
