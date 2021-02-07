@@ -15,9 +15,7 @@
         </li>
         <li class="c-sidebar-nav-item">
             <a href="{{ route("admin.accounts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/accounts") || request()->is("admin/accounts/*") ? "active" : "" }}">
-                <i class="fa-fw fas fa-user-friends c-sidebar-nav-icon">
-
-                </i>
+                <i class="fa-fw fas fa-user-friends c-sidebar-nav-icon"></i>
                 Accounts
             </a>
         </li>

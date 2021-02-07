@@ -72,7 +72,7 @@
                                                             Please unlock your phone screen to enter your M-Pesa PIN.<br/>
                                                             **Click on the validate button below upon receiving M-PESA message**
                                                         </div>
-                                                        <input type="hidden" id="CheckoutRequestID" value="{{$CheckoutRequestID}}">
+                                                        <input type="text" id="CheckoutRequestID" value="{{$CheckoutRequestID}}">
                                                         <marquee id="maq" scrollamount="1" behavior="alternate" style="color:red;"><strong>NOTE</strong> : If you dont receive an M-PESA prompt,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;your balance is insufficient for this transaction</marquee>
                                                         @endif
                                                         
