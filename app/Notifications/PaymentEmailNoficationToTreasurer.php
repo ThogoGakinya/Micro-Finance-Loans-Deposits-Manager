@@ -71,8 +71,13 @@ class PaymentEmailNoficationToTreasurer extends Notification
         return (new MailMessage)
             ->subject(config('app.name') . ': New Payment of Ksh ' . number_format($lastRecord->amount) . ' for ' . $account->account_name) //Custom way
             ->greeting('Dear Treasurer,')
-            ->line(new HtmlString('We would like to inform you that a new Payment of ' . '<b>' . 'Ksh ' . number_format($lastRecord->amount)
-                . '</b>' . ' for <b>' . $account->account_name . '</b>' . ' has been made on ' . '<b>' . $date . '</b>' . ' at ' . '<b>' . $time . '</b> <hr/>'))
+            ->line(new HtmlString('We would like to inform you that a new Payment of '
+                . '<b>' . 'Ksh ' . number_format($lastRecord->amount). '</b>'
+                .'(MPESA Transaction ID:'
+                . '<b>' .$lastRecord->transaction_id.' </b>)'
+                 . ' for <b>' . $account->account_name . '</b>'
+                . ' has been made on ' . '<b>' . $date
+                . '</b>' . ' at ' . '<b>' . $time . '</b> <hr/>'))
             ->line('Please log in to see more information.')
         ->action(config('app.name'), config('app.url') . '/admin/payments/' . $lastRecord->id)
         ->line('Thank you')
