@@ -4,6 +4,8 @@ namespace App\Observers;
 
 use App\Models\Payment;
 use App\Notifications\PaymentEmailNoficationToTreasurer;
+use App\Notifications\PaymentEmailNoficationToUser;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 class PaymentActionObserver
@@ -17,10 +19,13 @@ class PaymentActionObserver
     public function created(Payment $payment)
     {
         $data  = ['action' => 'created', 'model_name' => 'Payment'];
-        $users = \App\Models\User::whereHas('roles', function ($q) {
+        $lastRecord = DB::table('payments')->orderBy('id', 'DESC')->first();
+        $user = \App\Models\User::where('account_id',$lastRecord->account_id)->get();
+        $treasurers = \App\Models\User::whereHas('roles', function ($q) {
             return $q->where('title','Admin');
         })->get();
-        Notification::send($users, new PaymentEmailNoficationToTreasurer($data));
+        Notification::send($treasurers, new PaymentEmailNoficationToTreasurer($data));
+        Notification::send($user, new PaymentEmailNoficationToUser($data));
     }
 
     /**
