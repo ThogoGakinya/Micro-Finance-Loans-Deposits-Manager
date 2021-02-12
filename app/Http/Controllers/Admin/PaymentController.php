@@ -7,8 +7,12 @@ use App\Models\Account;
 use App\Models\Payment;
 use App\Models\MobilePayment;
 use App\Models\StkResponse;
+use App\Models\User;
+use App\Notifications\PaymentEmailNoficationToUser;
+use PDF;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -73,7 +77,7 @@ class PaymentController extends Controller
 
         $accounts = Account::all()->pluck('account_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.payments.create', compact('accounts'));
+        return view('admin.payments.test', compact('accounts'));
     }
 
     public function store(Request $request)
