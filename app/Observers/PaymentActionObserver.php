@@ -9,6 +9,7 @@ use App\Notifications\PaymentEmailNoficationToUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use PDF;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PaymentActionObserver
 {
@@ -29,8 +30,16 @@ class PaymentActionObserver
 
         $lastRecord = Payment::with('account')->orderBy('id', 'DESC')->first();
         $user = User::where('account_id',$lastRecord->account_id)->get();
+        $usersArray = $user->toArray(); // convert user object to an array
+        $userNamesArray = array_column($usersArray,'name'); //get an array of user names,
+        $userEmailsArray = array_column($usersArray,'email'); //get an array of user emails,
+        $userNames = implode(' & ', $userNamesArray);
+        $userEmails = implode('; ', $userEmailsArray);
+        $qrcode = base64_encode(QrCode::format('svg')->size(100)->errorCorrection('H')
+            ->generate($lastRecord->transaction_id.'-'.number_format($lastRecord->amount).'-'.$lastRecord->account_id));//Generate QR code  e.g MPESA12Ok12-200-175
+       // dd($qrcode);
         $filename = date('Y-m-d',strtotime($lastRecord->created_at)).'-'.$lastRecord->transaction_id . '.pdf'; //e.g 2021-02-12-MPESATRAS1.pdf
-        $pdf = PDF::loadView('admin.payments.pdf', compact('lastRecord','user'));
+        $pdf = PDF::loadView('admin.payments.pdf-receipt', compact('lastRecord','userNames','userEmails','qrcode'));
         $pdf->save(storage_path($filename));
         Notification::send($treasurers, new PaymentEmailNoficationToTreasurer($data));
         Notification::send($user, new PaymentEmailNoficationToUser($lastRecord));
