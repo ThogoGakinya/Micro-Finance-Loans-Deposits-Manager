@@ -109,7 +109,7 @@
                             </h4>
                         </td>
                         <td class="text-right">
-                            <strong>Date: {{$lastRecord->created_at->format('jS M-Y') ?? ''}}</strong>
+                            <img src="data:image/png;base64, {!! $qrcode !!}"><br>
                         </td>
                     </tr>
                 </table>
@@ -145,7 +145,8 @@
                     </td>
                     <td>
                         <div  class="text-right">
-                            <b>Receipt #{{$lastRecord->id ?? ''}}</b><br>
+                            <strong>Date: {{$lastRecord->created_at->format('jS M-Y') ?? ''}}</strong><br>
+                            <strong>Receipt #{{$lastRecord->id ?? ''}}</strong><br>
                             <p id="bg-text">
                                 <strong> PAID</strong>
                             </p>
