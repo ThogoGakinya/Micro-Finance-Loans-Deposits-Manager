@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Payment;
+use App\Models\Month;
 use App\Models\MobilePayment;
 use App\Models\StkResponse;
 use Gate;
+use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -129,9 +132,15 @@ class PaymentController extends Controller
     public function stkPush(Request $request)
     {
         $amount = $request->amount;
+        $account = auth::user()->account_id;
         $number = $request->number;
-        date_default_timezone_set('Africa/Nairobi');
+        $months = $request->month;
+        $year = $request->year;
+        $no_of_months = $request->months_count;
+        $value_per_month = ($amount/$no_of_months);
 
+        $data = array($amount,$account,$months,$no_of_months,$value_per_month,$year);
+        date_default_timezone_set('Africa/Nairobi');
         # access token
         $consumerKey = '4K1Aq2LGOCw5nQxUV60zLeONfmOwwuXw';
         $consumerSecret = 'kscGMdGb89nQNhCt';
@@ -200,9 +209,9 @@ class PaymentController extends Controller
         $CustomerMessage = $response['CustomerMessage'];
 
         return view('admin.payments.create')->with('CheckoutRequestID',$CheckoutRequestID)
-                                         ->with('CustomerMessage',$CustomerMessage)
-                                         ->with('ResponseCode',$ResponseCode);
-
+                                            ->with('CustomerMessage',$CustomerMessage)
+                                            ->with('data',$data)
+                                            ->with('ResponseCode',$ResponseCode);
 
     }
 
@@ -211,8 +220,10 @@ class PaymentController extends Controller
         $CheckoutRequestID = '';
         $ResponseCode = 222;
         $CustomerMessage = '';
+        $data = array();
         return view('admin.payments.create')->with('CheckoutRequestID',$CheckoutRequestID)
                                          ->with('CustomerMessage',$CustomerMessage)
+                                         ->with('data',$data)
                                          ->with('ResponseCode',$ResponseCode);
     }
 
@@ -220,5 +231,29 @@ class PaymentController extends Controller
     {
         $data4 = StkResponse::where('CheckoutRequestID',$request->id)->first();
         return response()->json($data4);
+    }
+
+    public function findMonth(Request $request)
+    {
+        $data = Payment::where([['account_id',$request->account_id],['year', $request->year]])->get();
+        $month = Month::all();
+        return response()->json(array($data,$month));
+    }
+
+    public function finishTransaction(Request $request)
+    {
+        $received = json_decode($request->data);
+        $months = $received[2];
+
+        foreach($months as $month) {
+            $data = array('account_id' => $received[1],
+                           'month' => $month, 
+                           'amount' => $received[4],
+                           'year' => $received[5],
+                           'created_at'=>Carbon::now(),
+                           'updated_at'=> Carbon::now());               
+            Payment::insert($data);    
+        }
+        return route('admin.payments.index');
     }
 }

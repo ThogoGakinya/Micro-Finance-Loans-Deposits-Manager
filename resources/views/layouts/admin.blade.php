@@ -22,6 +22,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
  
     @yield('styles')
 </head>
@@ -120,6 +121,20 @@
       frm.amount.focus();
       return false;
     }
+    if(frm.year.value=="")
+    {
+      event.preventDefault()
+      alert("Please select year");
+      frm.year.focus();
+      return false;
+    }
+    if(frm.months_count.value=="")
+    {
+      event.preventDefault()
+      alert("Please select at least one month");
+      frm.months_count.focus();
+      return false;
+    }
     if(isNaN(frm.number.value))
     {
       event.preventDefault()
@@ -160,11 +175,12 @@
 function complete()
 {
   var CheckoutID = document.getElementById('CheckoutRequestID').value;
+  var data = document.getElementById('data').value;
 
         $.ajax({
             type:'get',
-            url:'{!!URL::to("confirmpayment")!!}',
-            data:{'id':CheckoutID},
+            url:'{!!URL::to("admin/payments/confirmpayment")!!}',
+            data:{'id':CheckoutID,'data':data},
 
             beforeSend: function(){
               $('#first').hide();
@@ -223,6 +239,87 @@ function complete()
         });
   }
 </script>
+<!--Getting Payment dynamic months-->
+<script type="text/javascript">
+$(document).ready(function(){
+    $(document).on('change','#year',function(){
+		var year = $(this).val();
+        var account = document.getElementById('account_id').value;
+        var div = $(this).parent().parent().parent();
+        var op = "";
+        var ap = "";
+        var modal = $(this)
+        $.ajax({
+            type:'get',
+            url:'{!!URL::to("admin/payments/findmonth")!!}',
+            data:{'account_id':account, 'year':year},
+            dataType : "json",
+            success:function(data){
+                var month = data[1];
+                var payments = data[0];	
+                var checker = "enabled";
+                for( var i=0; i<month.length;i++)
+                {	
+                    for( var x=0; x<payments.length;x++)
+                        {
+                            if(payments[x].month == month[i].id )
+                            {
+                                var checker = "disabled";
+                                break;
+                            }
+                            else
+                            {
+                                var checker = "enabled";
+                            }
+                            continue;
+                        }          
+                     op+='<div class="col-md-3 col-sm-4">'+
+                         '<input name="month[]"class="month" value="'+month[i].id+'" type="checkbox" '+checker+'>'+
+                         '&nbsp;'+month[i].name+
+                         '</div>';          
+                }
+
+                div.find('#month').html("");
+                div.find('#month').append(op);
+            },
+            error:function(){
+                console.log('failed to fetch paid months');
+            }
+        });
+	});
+
+    $('#month').click(function() {
+        var amount = document.getElementById('amount').value;
+        if(amount == 0)
+        {
+            alert('Please enter amount first')
+            $('#amount').focus();
+            return false;
+        }
+        var checkboxes = $('input:checkbox:checked').length;
+        document.getElementById('months_count').value = checkboxes;
+        var distribution = (amount/checkboxes);
+        if(distribution < 200)
+        {
+            alert('Monthly premium below Ksh.200. Please consider increasing the enterd amount or reducing the selected months.')
+            $('#amount').focus();
+            return false;
+        }
+        var output = ""; 
+            output += '<div style="color:red">';
+            output += '<small>';
+            output += 'Paying premiums for ';
+            output +=  checkboxes; 
+            output += ' month(s) each valued Ksh. ';
+            output +=  distribution; 
+            output += '</small>';      
+            output +=  '</div>';
+
+            $("#distribution").html(output);
+  })
+});
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>

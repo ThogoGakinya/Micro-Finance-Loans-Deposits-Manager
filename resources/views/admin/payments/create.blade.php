@@ -49,8 +49,37 @@
                                                         Enter Amount
                                                     </div>
                                                         <div class="col-md-8">
-                                                        <input type="text" class="form-control" name="amount" min="0" max="150000" value = "0">
+                                                        <input type="text" class="form-control" name="amount" id="amount" min="0" max="150000" value = "0">
                                                         </div>
+                                                </div><br/>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        Year
+                                                    </div>
+                                                        <div class="col-md-8">
+                                                        <select id="year" name="year" class="form-control" required>
+                                                          <option value="">Select Year</option>
+                                                          <option value="{{date('Y')}}">{{date('Y')}}</option>
+                                                          <option value="{{date('Y')-1}}">{{date('Y')-1}}</option>
+                                                          <option value="{{date('Y')+1}}">{{date('Y')+1}}</option>
+                                                          <option value="{{date('Y')-2}}">{{date('Y')-2}}</option>
+                                                        </select>
+                                                        </div>
+                                                </div><br/>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        Month:
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                      <div class="row" id="month" style="background:#D0D0D0; border-radius:2%;">
+
+                                                      </div><br/>
+                                                      <div class="distribution" id="distribution">
+                                                      
+                                                      </div>
+                                                    <input type="hidden" id="account_id" class="form-control" value ="{{auth::user()->account_id}}">
+                                                    <input type="hidden" id="months_count" name="months_count" class="form-control" value ="">
+                                                    </div>
                                                 </div><br/>
                                                 <div class="row">
                                                     <div class="col-md-4">
@@ -85,10 +114,15 @@
                                                     @else
                                                       <button type="submit" id="getBack" class="btn btn-success" onclick="numberValidator();"><i class="fa fa-repeat" aria-hidden="true"></i> Initiate</button><br/>
                                                     @endif
-                                                    <a class="btn btn-success" id="finish" style="display:none;" href="{{route('admin.payments.index')}}"><i class="fa fa-flag-checkered" aria-hidden="true"></i> Finish</a>
+                                                    </form>
+                                                    <form method="post"  name="frm"class="form-horizontal" action="{{route('admin.payments.finish')}}" enctype="multipart/form-data">
+                                                     {{ csrf_field() }}
+                                                     <input type="hidden" id="data" name="data" value="{{json_encode($data)}}">
+                                                    <button class="btn btn-success" id="finish" style="display:none;" type="submit"><i class="fa fa-flag-checkered" aria-hidden="true"></i> Finish</button>
+                                                    </form>
                                                 </div>
                                                 <hr/>
-                                            </form>
+                                            
                                         </div>
                                       </div>
                                   </div>
