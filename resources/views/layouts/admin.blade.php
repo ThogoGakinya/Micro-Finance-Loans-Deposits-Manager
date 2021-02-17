@@ -23,6 +23,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/dataFunctions.js') }}"></script>
  
     @yield('styles')
 </head>
@@ -97,151 +98,10 @@
         </form>
     </div>
 </div>
+
+<!-- Start of window scripts -->
 <script type="text/javascript">
-  function numberValidator()
-  {
-    var div = $(this).parent().parent();
-    if(frm.amount.value=="")
-    {
-      event.preventDefault()
-      alert("Amount can not be empty");
-      frm.amount.focus();
-    }
-    if(isNaN(frm.amount.value))
-    {
-      event.preventDefault()
-      alert("Invalid Amount");
-      frm.amount.focus();
-      return false;
-    }
-    if(frm.amount.value < 1)
-    {
-      event.preventDefault()
-      alert("Invalid Amount");
-      frm.amount.focus();
-      return false;
-    }
-    if(frm.year.value=="")
-    {
-      event.preventDefault()
-      alert("Please select year");
-      frm.year.focus();
-      return false;
-    }
-    if(frm.months_count.value=="")
-    {
-      event.preventDefault()
-      alert("Please select at least one month");
-      frm.months_count.focus();
-      return false;
-    }
-    if(isNaN(frm.number.value))
-    {
-      event.preventDefault()
-      alert("Invalid Phone Number");
-      frm.number.focus();
-      return false;
-    }
-    if(frm.number.value=="")
-    {
-      event.preventDefault()
-      alert("Phone number can not be empty");
-      frm.number.focus();
-    }
-    if((frm.number.value).length != 12)
-    {
-      event.preventDefault()
-      alert("Phone number length does not meet criteria");
-      frm.number.focus();
-      return false;
-    }
-    $('#loader').show();
-    return true;
-  }
-</script>
-
-<script type="text/javascript">
-    window.onload = function()
-    {
-        var button = document.getElementById('response').value;
-        if(button == 0)
-        {
-            document.getElementById('primary').click();
-        }
-    };
-</script>
-
-<script type="text/javascript">
-function complete()
-{
-  var CheckoutID = document.getElementById('CheckoutRequestID').value;
-  var data = document.getElementById('data').value;
-
-        $.ajax({
-            type:'get',
-            url:'{!!URL::to("admin/payments/confirmpayment")!!}',
-            data:{'id':CheckoutID,'data':data},
-
-            beforeSend: function(){
-              $('#first').hide();
-              $('#maq').hide();
-              $('#loader').show();
-            },
-            complete: function(){
-              $('#loader').hide();
-            },
-            success: function(data4){
-             if(Object.keys(data4).length === 0)
-             {
-                  var output = ""; 
-                      output += ` <div class="alert alert-warning alert-dismissible" >
-                                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                  <h5><i class="icon fas fa-info"></i> Alert</h5>
-                                  No Payment received yet ! Please keep clicking the complete button if you have received an M-PESA message.
-                                 </div>`;
-
-                  $("#results").html(output);
-             }
-             else
-             {
-              if(data4.ResultCode == 0)
-                {
-                      var output = ""; 
-                          output += ` <div class="alert alert-success alert-dismissible" >
-                                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                      <h5><i class="icon fas fa-check"></i> Success</h5>
-                                      Payment received successfully
-                                    </div>`;
-
-                      $("#results").html(output);
-                      $('#finish').show();
-                      $('#validate').hide();
-                }
-                else
-                {
-                      var output = ""; 
-                          output += '<div class="alert alert-danger alert-dismissible">';
-                          output += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
-                          output += '<h5><i class="icon fas fa-info"></i> Alert</h5>';
-                          output +=  data4.ResultDesc;       
-                          output +=  '</div>';
-
-                      $("#results").html(output);
-                }
-             }
-             
-             
-            },
-            error:function()
-            {
-              $("#results").html("error");
-            }
-        });
-  }
-</script>
-<!--Getting Payment dynamic months-->
-<script type="text/javascript">
-$(document).ready(function(){
+    $(document).ready(function(){
     $(document).on('change','#year',function(){
 		var year = $(this).val();
         var account = document.getElementById('account_id').value;
@@ -319,6 +179,244 @@ $(document).ready(function(){
   })
 });
 </script>
+<!-- End of window scripts -->
+<!-- Start of window scripts_2 -->
+<script type="text/javascript">
+window.onload = function()
+    {
+        var button = document.getElementById('response').value;
+        if(button == 1)
+        {
+            document.getElementById('primary').click();
+        }
+        if(button == 2)
+        {
+            document.getElementById('primary_2').click();
+        }
+    };
+
+    $(document).ready(function(){
+    $(document).on('change','#year_2',function(){
+		var year = $(this).val();
+        var account = document.getElementById('account_id_2').value;
+        if(account =="")
+        {
+            alert("Please select user account first")
+            $('#account_id_2').focus();
+            return false;
+        }
+        var div = $(this).parent().parent().parent();
+        var op = "";
+        var ap = "";
+        var modal = $(this)
+        $.ajax({
+            type:'get',
+            url:'{!!URL::to("admin/payments/findmonth")!!}',
+            data:{'account_id':account, 'year':year},
+            dataType : "json",
+            success:function(data){
+                var month = data[1];
+                var payments = data[0];	
+                var checker = "enabled";
+                for( var i=0; i<month.length;i++)
+                {	
+                    for( var x=0; x<payments.length;x++)
+                        {
+                            if(payments[x].month == month[i].id )
+                            {
+                                var checker = "disabled";
+                                break;
+                            }
+                            else
+                            {
+                                var checker = "enabled";
+                            }
+                            continue;
+                        }          
+                     op+='<div class="col-md-3 col-sm-4">'+
+                         '<input name="month_2[]"class="month" value="'+month[i].id+'" type="checkbox" '+checker+'>'+
+                         '&nbsp;'+month[i].name+
+                         '</div>';          
+                }
+
+                div.find('#month_2').html("");
+                div.find('#month_2').append(op);
+            },
+            error:function(){
+                console.log('failed to fetch paid months');
+            }
+        });
+	});
+
+    $('#month_2').click(function() {
+        var amount = document.getElementById('amount_2').value;
+        if(amount == 0)
+        {
+            alert('Please enter amount first')
+            $('#amount_2').focus();
+            return false;
+        }
+        var checkboxes = $('input:checkbox:checked').length;
+        document.getElementById('months_count_2').value = checkboxes;
+        var distribution = (amount/checkboxes);
+        if(distribution < 200)
+        {
+            alert('Monthly premium below Ksh.200. Please consider increasing the enterd amount or reducing the selected months.')
+            $('#amount_2').focus();
+            return false;
+        }
+        var output = ""; 
+            output += '<div style="color:red">';
+            output += '<small>';
+            output += 'Paying premiums for ';
+            output +=  checkboxes; 
+            output += ' month(s) each valued Ksh. ';
+            output +=  distribution; 
+            output += '</small>';      
+            output +=  '</div>';
+
+            $("#distribution_2").html(output);
+  })
+});
+</script>
+<script type="text/javascript">
+function complete()
+{
+  var CheckoutID = document.getElementById('CheckoutRequestID').value;
+  var data = document.getElementById('data').value;
+
+        $.ajax({
+            type:'get',
+            url:'{!!URL::to("admin/payments/confirmpayment")!!}',
+            data:{'id':CheckoutID,'data':data},
+
+            beforeSend: function(){
+              $('#first').hide();
+              $('#maq').hide();
+              $('#loader').show();
+            },
+            complete: function(){
+              $('#loader').hide();
+            },
+            success: function(data4){
+             if(Object.keys(data4).length === 0)
+             {
+                  var output = ""; 
+                      output += ` <div class="alert alert-warning alert-dismissible" >
+                                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                  <h5><i class="icon fas fa-info"></i> Alert</h5>
+                                  No Payment received yet ! Please keep clicking the complete button if you have received an M-PESA message.
+                                 </div>`;
+
+                  $("#results").html(output);
+             }
+             else
+             {
+              if(data4.ResultCode == 0)
+                {
+                      var output = ""; 
+                          output += ` <div class="alert alert-success alert-dismissible" >
+                                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                      <h5><i class="icon fas fa-check"></i> Success</h5>
+                                      Payment received successfully
+                                    </div>`;
+
+                      $("#results").html(output);
+                      $('#finish').show();
+                      $('#validate').hide();
+                }
+                else
+                {
+                      var output = ""; 
+                          output += '<div class="alert alert-danger alert-dismissible">';
+                          output += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+                          output += '<h5><i class="icon fas fa-info"></i> Alert</h5>';
+                          output +=  data4.ResultDesc;       
+                          output +=  '</div>';
+
+                      $("#results").html(output);
+                }
+             }
+             
+             
+            },
+            error:function()
+            {
+              $("#results").html("error");
+            }
+        });
+  }
+
+function complete_2()
+{
+  var CheckoutID = document.getElementById('CheckoutRequestID_2').value;
+  var data = document.getElementById('data_2').value;
+
+        $.ajax({
+            type:'get',
+            url:'{!!URL::to("admin/payments/confirmpayment")!!}',
+            data:{'id':CheckoutID,'data':data},
+
+            beforeSend: function(){
+              $('#first_2').hide();
+              $('#maq_2').hide();
+              $('#loader_2').show();
+            },
+            complete: function(){
+              $('#loader_2').hide();
+            },
+            success: function(data4){
+             if(Object.keys(data4).length === 0)
+             {
+                  var output = ""; 
+                      output += ` <div class="alert alert-warning alert-dismissible" >
+                                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                  <h5><i class="icon fas fa-info"></i> Alert</h5>
+                                  No Payment received yet ! Please keep clicking the complete button if you have received an M-PESA message.
+                                 </div>`;
+
+                  $("#results_2").html(output);
+             }
+             else
+             {
+              if(data4.ResultCode == 0)
+                {
+                      var output = ""; 
+                          output += ` <div class="alert alert-success alert-dismissible" >
+                                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                      <h5><i class="icon fas fa-check"></i> Success</h5>
+                                      Payment received successfully
+                                    </div>`;
+
+                      $("#results_2").html(output);
+                      $('#finish_2').show();
+                      $('#validate_2').hide();
+                }
+                else
+                {
+                      var output = ""; 
+                          output += '<div class="alert alert-danger alert-dismissible">';
+                          output += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+                          output += '<h5><i class="icon fas fa-info"></i> Alert</h5>';
+                          output +=  data4.ResultDesc;       
+                          output +=  '</div>';
+
+                      $("#results_2").html(output);
+                }
+             }
+             
+             
+            },
+            error:function()
+            {
+              $("#results_2").html("error");
+            }
+        });
+  }
+  </script>
+<!-- End of window scripts -->
+
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>

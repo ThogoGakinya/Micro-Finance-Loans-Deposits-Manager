@@ -135,12 +135,27 @@ class PaymentController extends Controller
 
     public function stkPush(Request $request)
     {
-        $amount = $request->amount;
-        $account = auth::user()->account_id;
-        $number = $request->number;
-        $months = $request->month;
-        $year = $request->year;
-        $no_of_months = $request->months_count;
+        if($request->months_count_2 == 0)
+        {
+            $no_of_months = $request->months_count; 
+            $amount = $request->amount;
+            $account = auth::user()->account_id;
+            $number = $request->number;
+            $months = $request->month;
+            $year = $request->year;
+            $clicker = 1;
+        }
+        else
+        {
+            $no_of_months = $request->months_count_2;
+            $amount = $request->amount_2;
+            $account = $request->account_id;
+            $number = $request->number_2;
+            $months = $request->month_2;
+            $year = $request->year_2;
+            $clicker = 2;
+        }
+        
         $value_per_month = ($amount/$no_of_months);
 
         $data = array($amount,$account,$months,$no_of_months,$value_per_month,$year);
@@ -211,10 +226,13 @@ class PaymentController extends Controller
         $CheckoutRequestID = $response['CheckoutRequestID'];
         $ResponseCode = $response['ResponseCode'];
         $CustomerMessage = $response['CustomerMessage'];
+        $accounts = Account::all();
 
         return view('admin.payments.create')->with('CheckoutRequestID',$CheckoutRequestID)
                                             ->with('CustomerMessage',$CustomerMessage)
                                             ->with('data',$data)
+                                            ->with('clicker',$clicker)
+                                            ->with('accounts',$accounts)
                                             ->with('ResponseCode',$ResponseCode);
 
     }
@@ -225,10 +243,14 @@ class PaymentController extends Controller
         $ResponseCode = 222;
         $CustomerMessage = '';
         $data = array();
+        $clicker = 0;
+        $accounts = Account::all();
         return view('admin.payments.create')->with('CheckoutRequestID',$CheckoutRequestID)
-                                         ->with('CustomerMessage',$CustomerMessage)
-                                         ->with('data',$data)
-                                         ->with('ResponseCode',$ResponseCode);
+                                            ->with('CustomerMessage',$CustomerMessage)
+                                            ->with('data',$data)
+                                            ->with('clicker',$clicker)
+                                            ->with('accounts',$accounts)
+                                            ->with('ResponseCode',$ResponseCode);
     }
 
     public function confirmPayment(Request $request)
@@ -258,6 +280,6 @@ class PaymentController extends Controller
                            'updated_at'=> Carbon::now());               
             Payment::insert($data);    
         }
-        return route('admin.payments.index');
+        return view('admin.payments.index');
     }
 }
