@@ -7,8 +7,15 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle"
+                        @if($user->photo)
+                            <a href="{{ $user->photo->getUrl() }}" target="_blank" style="display: inline-block">
+                                <img src="{{ $user->photo->getUrl('thumb') }}" alt="Admin" class="rounded-circle"
+                                     width="150">
+                            </a>
+                        @else
+                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle"
                              width="150">
+                        @endif
                         <div class="mt-3">
                             <h4>{{$user->name}}</h4>
                             <p class="text-secondary mb-1">Role:
