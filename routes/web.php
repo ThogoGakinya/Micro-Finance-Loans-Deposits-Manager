@@ -24,6 +24,8 @@ Route::resource('roles', 'RolesController');
 
 // Users
 Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
+Route::post('users/media', 'UsersController@storeMedia')->name('users.storeMedia');
+Route::post('users/ckmedia', 'UsersController@storeCKEditorImages')->name('users.storeCKEditorImages');
 Route::resource('users', 'UsersController');
 
 // Accounts
