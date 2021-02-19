@@ -38,6 +38,12 @@ Route::get('payments/confirmpayment', 'PaymentController@confirmPayment')->name(
 Route::delete('payments/destroy', 'PaymentController@massDestroy')->name('payments.massDestroy');
 Route::get('payments/findmonth',  'PaymentController@findMonth')->name('payments.findmonth');
 Route::resource('payments', 'PaymentController');
+
+// Minutes
+    Route::delete('minutes/destroy', 'MinutesController@massDestroy')->name('minutes.massDestroy');
+    Route::post('minutes/media', 'MinutesController@storeMedia')->name('minutes.storeMedia');
+    Route::post('minutes/ckmedia', 'MinutesController@storeCKEditorImages')->name('minutes.storeCKEditorImages');
+    Route::resource('minutes', 'MinutesController');
 });
 // Route::post('/initiate-transaction',  'Admin\PaymentController@stkPush')->name('stk-initial');
 // Route::get('/pay',  'Admin\PaymentController@getPaymentForm')->name('pay');

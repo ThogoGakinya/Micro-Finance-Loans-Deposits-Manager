@@ -68,6 +68,15 @@
                 </ul>
             </li>
         @endcan
+        @can('minute_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.minutes.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/minutes") || request()->is("admin/minutes/*") ? "active" : "" }}">
+                    <i class="fa-fw fas fa-file-signature c-sidebar-nav-icon">
+                    </i>
+                    Minutes
+                </a>
+            </li>
+        @endcan
         <li class="c-sidebar-nav-item">
             <a href="#" class="c-sidebar-nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-sign-out-alt">
