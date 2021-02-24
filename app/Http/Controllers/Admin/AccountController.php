@@ -57,7 +57,7 @@ class AccountController extends Controller
     }
     public function myAccount()
     {
-        abort_if(Gate::denies('account_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('my_account'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $account_id = auth()->user()->account_id;
         $account= Account::where('id','=',$account_id)->with('accountUsers', 'accountPayments')->first();
         return view('admin.accounts.myAccount', compact('account'));
