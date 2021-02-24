@@ -46,10 +46,14 @@
                                 @endif
                             </td>
                             <td>
+                                <a class="btn btn-xs btn-primary"
+                                   href="{{ $minute->minutes_document->getUrl() }}" target="_blank">
+                                    <i class="fas fa-download"></i>Download
+                                </a>
                               @can('minute_edit')
                                     <a class="btn btn-xs btn-info"
                                        href="{{ route('admin.minutes.edit', $minute->id) }}">
-                                        Edit
+                                        <i class="fas fa-edit"></i>Edit
                                     </a>
                                 @endcan
 
@@ -59,7 +63,20 @@
                                           style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                        <span class="btn btn-xs btn-danger">
+                                            <i class="fa fa-trash"></i> <input type="submit" value="Delete"/>
+                                        </span>
+                                        <style> span > i {
+                                        color: white;
+                                        }
+                                        span > input {
+                                        background: none;
+                                        color: white;
+                                        padding: 0;
+                                        border: 0;
+                                        }
+                                        </style>
+                                        {{--<input type="submit" class="btn btn-xs btn-danger" value="Delete">--}}
                                     </form>
                                 @endcan
 
