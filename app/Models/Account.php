@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\Traits\MultiTenantModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +9,7 @@ use \DateTimeInterface;
 
 class Account extends Model
 {
-    use SoftDeletes,MultiTenantModelTrait, HasFactory;
+    use SoftDeletes, HasFactory;
 
     public $table = 'accounts';
 
