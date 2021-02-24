@@ -13,12 +13,24 @@
                 {{ trans('global.dashboard') }}
             </a>
         </li>
+        @can('minute_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.accounts.myAccount") }}" class="c-sidebar-nav-link {{ request()->is("admin/myAccount") || request()->is("admin/myAccount") ? "active" : "" }}">
+                    <i class="fa-fw fas fa-user-circle c-sidebar-nav-icon">
+                    </i>
+                    My Account
+                </a>
+            </li>
+        @endcan
+        @can('account_access')
         <li class="c-sidebar-nav-item">
             <a href="{{ route("admin.accounts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/accounts") || request()->is("admin/accounts/*") ? "active" : "" }}">
                 <i class="fa-fw fas fa-user-friends c-sidebar-nav-icon"></i>
                 Accounts
             </a>
         </li>
+        @endcan
+        @can('payment_access')
         <li class="c-sidebar-nav-item">
             <a href="{{ route("admin.payments.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payments") || request()->is("admin/payments/*") ? "active" : "" }}">
                 <i class="fa-faw fas fa-credit-card  c-sidebar-nav-icon">
@@ -27,6 +39,7 @@
                 Payment
             </a>
         </li>
+        @endcan
         @can('user_management_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/permissions*") ? "c-show" : "" }} {{ request()->is("admin/roles*") ? "c-show" : "" }} {{ request()->is("admin/users*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">

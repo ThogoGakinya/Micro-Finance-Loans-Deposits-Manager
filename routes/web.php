@@ -29,6 +29,7 @@ Route::post('users/ckmedia', 'UsersController@storeCKEditorImages')->name('users
 Route::resource('users', 'UsersController');
 
 // Accounts
+Route::get('myAccount/',  'AccountController@myAccount')->name('accounts.myAccount');
 Route::delete('accounts/destroy', 'AccountController@massDestroy')->name('accounts.massDestroy');
 Route::resource('accounts', 'AccountController');
 
