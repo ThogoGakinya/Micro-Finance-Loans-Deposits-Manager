@@ -22,6 +22,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/tables.css') }}" rel="stylesheet" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/dataFunctions.js') }}"></script>
  
@@ -414,6 +415,17 @@ function complete_2()
         });
   }
   </script>
+  <script type = "text/javascript">
+        function confirmApproval() {
+            var retVal = confirm("Are you sure yo want to approve this request ?");
+            if( retVal == true ) {
+                return true;
+            } else {
+                event.preventDefault();
+                return false;
+            }
+        }
+</script>    
 <!-- End of window scripts -->
 
 

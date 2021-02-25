@@ -82,4 +82,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Account::class, 'account_id');
     }
+    public function requisitions()
+    {
+        return $this->hasMany('App\Models\Expense');
+    }
 }

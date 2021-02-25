@@ -38,8 +38,12 @@ Route::get('payments/confirmpayment', 'PaymentController@confirmPayment')->name(
 Route::delete('payments/destroy', 'PaymentController@massDestroy')->name('payments.massDestroy');
 Route::get('payments/findmonth',  'PaymentController@findMonth')->name('payments.findmonth');
 Route::resource('payments', 'PaymentController');
+
+//Finance and Expenses
+Route::get('finance/treasurer',  'ExpensesController@fetchTreasurerExpenses')->name('treasurer_expenses');
+Route::get('finance/chair',  'ExpensesController@fetchChairExpenses')->name('chair_expenses');
+Route::resource('finance', 'ExpensesController');
+
+
 });
-// Route::post('/initiate-transaction',  'Admin\PaymentController@stkPush')->name('stk-initial');
-// Route::get('/pay',  'Admin\PaymentController@getPaymentForm')->name('pay');
-// Route::get('/confirmpayment', 'Admin\PaymentController@confirmPayment')->name('confirmpayment');
-// Route::get('/findmonth',  'PaymentController@findMonth')->name('payments.findmonth');
+

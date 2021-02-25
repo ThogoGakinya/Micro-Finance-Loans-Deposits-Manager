@@ -76,6 +76,26 @@
                 {{ trans('global.logout') }}
             </a>
         </li>
+        @can('treasurer_approve_expenditure')
+        <li class="c-sidebar-nav-item">
+            <a href="{{ route("admin.treasurer_expenses") }}" class="c-sidebar-nav-link {{ request()->is("admin/finance") || request()->is("admin/finance/*") ? "active" : "" }}">
+                <i class="fa-faw fas fa-credit-card  c-sidebar-nav-icon">
+
+                </i>
+                Expenses
+            </a>
+        </li>
+        @endcan
+        @can('chair_approve_expenditure')
+        <li class="c-sidebar-nav-item">
+            <a href="{{ route("admin.chair_expenses") }}" class="c-sidebar-nav-link {{ request()->is("admin/finance") || request()->is("admin/finance/*") ? "active" : "" }}">
+                <i class="fa-faw fas fa-credit-card  c-sidebar-nav-icon">
+
+                </i>
+                Expenses
+            </a>
+        </li>
+        @endcan
     </ul>
 
 </div>

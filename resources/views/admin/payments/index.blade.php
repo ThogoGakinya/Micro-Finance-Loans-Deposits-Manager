@@ -35,7 +35,7 @@
 
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Payment">
+                                    <table class="customers-actions table-hover ajaxTable datatable datatable-Payment">
                                         <thead>
                                         <tr>
                                             <th width="10">
@@ -46,36 +46,9 @@
                                             <th>Amount</th>
                                             <th>Month</th>
                                             <th>Year</th>
-                                            <th>
-                                                &nbsp;
-                                            </th>
+                                            <th>Action</th>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                            </td>
-                                            <td>
-                                                <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                            </td>
-                                            <td>
-                                                <select class="search">
-                                                    <option value>{{ trans('global.all') }}</option>
-                                                    @foreach($accounts as $key => $item)
-                                                        <option value="{{ $item->account_name }}">{{ $item->account_name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                            </td>
-                                            <td>
-                                                <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                            </td>
-                                            <td>
-                                                <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                            </td>
-                                            <td>
-                                            </td>
-                                        </tr>
+
                                         </thead>
                                     {{-- <tbody>
                                         @foreach($payments as $key => $payment)

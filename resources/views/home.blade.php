@@ -77,7 +77,6 @@
                                               </div>
                                               <!-- ./col -->
                                               <div class="col-lg-3 col-6">
-                                              <!-- small card -->
                                               <div class="small-box bg-danger">
                                                 <div class="inner">
                                                   <h4>Make Payment</h4>
@@ -88,6 +87,24 @@
                                                 <i class="fa fa-plus"></i>
                                                 </div>
                                                 <a href="{{ route('admin.payments.pay') }}" class="small-box-footer">
+                                                  Initiate <i class="fas fa-arrow-circle-right"></i>
+                                                </a>
+                                              </div>
+                                            </div>
+                                          </div></br>
+                                            <div class="row">
+                                             <!-- ./col -->
+                                             <div class="col-lg-3 col-6">
+                                              <div class="small-box bg-info">
+                                                <div class="inner">
+                                                  <h4>Cash Requisition</h4>
+
+                                                  <p>Click to request</p>
+                                                </div>
+                                                <div class="icon">
+                                                <i class="fa fa-plus"></i>
+                                                </div>
+                                                <a href="{{ route("admin.finance.index") }}" class="small-box-footer">
                                                   Initiate <i class="fas fa-arrow-circle-right"></i>
                                                 </a>
                                               </div>

@@ -99,7 +99,7 @@
     }
     if(frm_2.months_count_2.value=="")
     {
-      event.preventDefault()
+      e.preventDefault()
       alert("Please select at least one month");
       frm_2.months_count_2.focus();
       return false;
