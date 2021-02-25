@@ -1,0 +1,174 @@
+.box
+{
+ width:800px;
+ margin:0 auto;
+}
+.active_tab1
+{
+ background-color:#fff;
+ color:#333;
+ font-weight: 600;
+}
+.inactive_tab1 .timeline-header
+{
+ background-color: #f5f5f5;
+ color: #333;
+ cursor: not-allowed;
+}
+.timeline-header
+{
+ background-color: #f5f5f5;
+}
+.has-error
+{
+ border-color:#cc0000;
+ background-color:#ffff99;
+}
+.container-box{
+    background-color:#fff;
+    padding: 4%;
+}
+.panel-default {
+    border-color: #ddd;
+}
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-color: #ddd;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.panel-default > .panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-bottom-color: transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.panel-body {
+    padding: 15px;
+}
+
+/*start of table styles*/
+.customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: blanchedalmond;
+}
+
+.customers td, .customers th {
+border: 1px solid #ddd;
+padding: 6px;
+font-size: 13px;
+line-height: 1.42857143;
+color: #000;
+}
+.customers tr:hover {background-color: rgb(212, 190, 190);}
+
+.customers th {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: left;
+  background-color: powderblue;
+  color: black;
+}
+.active_td{
+    background-color: white;
+}
+.inline_input td{
+    padding: 20px;
+}
+.form-control-custom {
+    display: block;
+    width: 100%;
+    height: calc(1.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 13px;
+    font-weight: 100;
+    line-height: 1.5;
+    color:blue;
+    background-color:#ffffff;
+    background-clip: padding-box;
+    border: 1px solid red;
+    border-radius: 0.25rem;
+    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+/*end of table styles*/
+
+/*start of table styles for goal actions*/
+.customers-actions {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    width: 100%;
+    background-color: white;
+  
+  }
+  
+  .customers-actions td, .customers-actions th {
+  border: 1px solid #ddd;
+  padding: 6px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #000;
+  }
+  .customers-actions tr:hover {background-color: rgb(235, 204, 204);}
+  .totals td {border-top: 3px solid black;}
+  
+  .customers-actions th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    background-color: rgb(216, 239, 241);
+    color: black;
+  }
+
+  /*End of table styles for goal actions*/
+
+  /*start of table styles for goal actions plans*/
+.customers-timelines {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;    
+    border: 2px solid powderblue;
+    width: 100%;
+    background-color: blanchedalmond;
+  
+  }
+  
+  .customers-timelines td, .customers-timelines th {
+  border: 1px solid #ddd;
+  padding: 6px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #000;
+  }
+  .customers-timelines tr:hover {background-color: rgb(235, 204, 204);}
+  
+  .customers-timelines th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    background-color: powderblue;
+    color: black;
+  }
+  .undone{
+    background-color: red;
+  };
+  .done{
+    background-color: green;
+  };
+  .scores{
+    background-color: white;
+  };
+
+  /*End of table styles for goal actions*/
