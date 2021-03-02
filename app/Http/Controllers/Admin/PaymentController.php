@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
+use function GuzzleHttp\Promise\all;
 
 class PaymentController extends Controller
 {
@@ -137,7 +138,7 @@ class PaymentController extends Controller
     {
         if($request->months_count_2 == 0)
         {
-            $no_of_months = $request->months_count; 
+            $no_of_months = $request->months_count;
             $amount = $request->amount;
             $account = auth::user()->account_id;
             $number = $request->number;
@@ -155,7 +156,7 @@ class PaymentController extends Controller
             $year = $request->year_2;
             $clicker = 2;
         }
-        
+
         $value_per_month = ($amount/$no_of_months);
 
         $data = array($amount,$account,$months,$no_of_months,$value_per_month,$year);
@@ -273,13 +274,24 @@ class PaymentController extends Controller
 
         foreach($months as $month) {
             $data = array('account_id' => $received[1],
-                           'month' => $month, 
+                           'month' => $month,
                            'amount' => $received[4],
                            'year' => $received[5],
                            'created_at'=>Carbon::now(),
-                           'updated_at'=> Carbon::now());               
-            Payment::insert($data);    
+                           'updated_at'=> Carbon::now());
+            Payment::insert($data);
         }
         return view('admin.payments.index');
+    }
+
+    public function sendSMS(Request $request){
+        $allUsersMobileNumbers = User::get()
+            ->pluck('mobile_number')
+            ->toArray();
+        //dd($mobiles);
+        //$smsResponse= smsapi()->sendMessage("","")->response(); //get send sms logs
+        $smsResponse = smsapi()->gateway(env('SEND_SMS_API_GATEWAY'))->sendMessage($allUsersMobileNumbers,"Dear All, \n This a test from the code to all the users. i.e mass text sending")->response(); // send sms to a single number
+        //return compact('smsResponse');
+        return $smsResponse;
     }
 }

@@ -15,6 +15,7 @@
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
+        "gr8shivam/laravel-sms-api": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/dusk": "^6.6",
         "laravel/framework": "^8.0",
@@ -22,7 +23,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "spatie/laravel-medialibrary": "^8.7",
+        "spatie/laravel-medialibrary": "^8.7.0",
         "yajra/laravel-datatables-oracle": "^9.11"
     },
     "require-dev": {
