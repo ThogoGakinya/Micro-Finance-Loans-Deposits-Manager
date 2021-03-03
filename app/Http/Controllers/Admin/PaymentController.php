@@ -178,7 +178,6 @@ class PaymentController extends Controller
         //echo $access_token;
         curl_close($curl);
 
-
         $BusinessShortCode = '215723';
         $Passkey = '0b92f7580f273c1ed010675030514649f9ed75e6008d811e419064f21014f3d5';
         $PartyA = $number;
@@ -281,5 +280,38 @@ class PaymentController extends Controller
             Payment::insert($data);    
         }
         return view('admin.payments.index');
+    }
+
+    public function sendSMS(Request $request)
+    {
+        $headers = ['Content-Type:application/json; charset=utf8'];
+        $username = "MUCUA";
+        $url = "http://107.20.199.106/restapi/sms/1/text/single";
+        $password = "@Caleb2011";
+        $encoded = base64_encode($username.':'.$password);
+        $authorization = "Basic ".$encoded;
+        $from = "ORACOM-KE";
+        $to = 254713287641;
+        $message = "Hi Sam";
+
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers,);
+        curl_setopt($curl, CURLOPT_USERPWD, $authorization);
+
+        $curl_post_data = array(
+            'from' => $from,
+            'to' => $to,
+            'text' => $message
+        );
+
+        $data_string = json_encode($curl_post_data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS,  $data_string);
+        $curl_response = curl_exec($curl);
+        $response = json_decode($curl_response, true);
+
+        return $authorization;
     }
 }

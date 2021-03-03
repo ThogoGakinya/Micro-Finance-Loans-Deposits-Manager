@@ -95,7 +95,7 @@
                         <div class="modal fade" id="edit_request_{{$requisition->id}}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                    <form method="post" action="{{route('admin.finance.update',$requisition->id)}}">
+                                    <form method="post" action="{{route('admin.finance.update',$requisition->id)}}" enctype="multipart/form-data">
                                         <div class="modal-body">
                                         {{ csrf_field() }}
                                         @method('put')
@@ -191,10 +191,18 @@
                                                     <strong>UPLOAD RECEIPTS</strong><br/>
                                                     -------------------------------------------------------------------------
                                                     <div class="form-group">
-                                                        <label for="receipt">Receipt 1</label>
-                                                        <input type="file" class="form-control" name="document1"/>
-                                                        <label for="receipt">Receipt 2</label>
-                                                        <input type="file" class="form-control" name="document2"/>
+                                                        <label for="receipt"><u>Receipt 1</u></label>
+                                                        @if($requisition->doc_1 == '')
+                                                         <input type="file" class="form-control" name="document1"/>
+                                                        @else
+                                                            <br/> <a href="" data-toggle="modal" data-target="#docs_doc1"><i class="fa fa-file"></i><small> {{$requisition->doc_1}}</small></a><br/><br/>
+                                                        @endif
+                                                        <label for="receipt"><u>Receipt 2</u></label>
+                                                        @if($requisition->doc_2 == '')
+                                                         <input type="file" class="form-control" name="document2"/>
+                                                        @else
+                                                        <br/> <a href="" data-toggle="modal" data-target="#docs_doc2"><i class="fa fa-file"></i><small> {{$requisition->doc_2}}</small></a><br/><br/>
+                                                        @endif
                                                     </div>
                                                    @endif
                                                 </div>
@@ -214,6 +222,38 @@
                                 </div>
                             </div><!-- /.modal-dialog -->
                         <!-- end of the modal form to add a cash request-->
+                        <!-- Modal for viewing uploaded document 1-->
+                            <div class="modal fade" id="docs_doc1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    @php
+                                                        $path = $requisition->doc_1;
+                                                    @endphp
+                                                    <embed src="{{asset('Documents/Receipts/'.$path)}}" id="files" type="application/pdf" width="100%" height="600px"/>
+                                                </div>
+                                                
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div> 
+                        <!-- End of Modal for viewing uploaded document -->
+                        <!-- Modal for viewing uploaded document 1-->
+                        <div class="modal fade" id="docs_doc2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    @php
+                                                        $path2 = $requisition->doc_2;
+                                                    @endphp
+                                                    <embed src="{{asset('Documents/Receipts/'.$path2)}}" id="files" type="application/pdf" width="100%" height="600px"/>
+                                                </div>
+                                                
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div> 
+                        <!-- End of Modal for viewing uploaded document -->
                         @endforeach
                         
                         </tbody>

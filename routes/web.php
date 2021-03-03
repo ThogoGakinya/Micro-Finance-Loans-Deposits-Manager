@@ -24,9 +24,12 @@ Route::resource('roles', 'RolesController');
 
 // Users
 Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
+Route::post('users/media', 'UsersController@storeMedia')->name('users.storeMedia');
+Route::post('users/ckmedia', 'UsersController@storeCKEditorImages')->name('users.storeCKEditorImages');
 Route::resource('users', 'UsersController');
 
 // Accounts
+Route::get('myAccount/',  'AccountController@myAccount')->name('accounts.myAccount');
 Route::delete('accounts/destroy', 'AccountController@massDestroy')->name('accounts.massDestroy');
 Route::resource('accounts', 'AccountController');
 
@@ -39,11 +42,19 @@ Route::delete('payments/destroy', 'PaymentController@massDestroy')->name('paymen
 Route::get('payments/findmonth',  'PaymentController@findMonth')->name('payments.findmonth');
 Route::resource('payments', 'PaymentController');
 
-//Finance and Expenses
+// Finance and Expenses
 Route::get('finance/treasurer',  'ExpensesController@fetchTreasurerExpenses')->name('treasurer_expenses');
 Route::get('finance/chair',  'ExpensesController@fetchChairExpenses')->name('chair_expenses');
 Route::resource('finance', 'ExpensesController');
 
 
+// Minutes
+    Route::delete('minutes/destroy', 'MinutesController@massDestroy')->name('minutes.massDestroy');
+    Route::post('minutes/media', 'MinutesController@storeMedia')->name('minutes.storeMedia');
+    Route::post('minutes/ckmedia', 'MinutesController@storeCKEditorImages')->name('minutes.storeCKEditorImages');
+    Route::resource('minutes', 'MinutesController');
+
+    
 });
 
+Route::get('/sms',  'Admin\PaymentController@sendSMS')->name('sms');

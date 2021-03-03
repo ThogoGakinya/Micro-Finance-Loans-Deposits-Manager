@@ -83,6 +83,29 @@ class ExpensesController extends Controller
      */
     public function update(Request $request, Expense $expense)
     {
+        //Get document names with extension and uploading as well.
+        $token_id = $request->token_id;
+        if($request->hasFile('document1'))
+        {  
+           $documentOneName = $request->file('document1')->getClientOriginalName();
+           $docNameOneToStore = $token_id.'_'.$documentOneName;
+           $path1 = $request->file('document1')->storeAs('Receipts', $docNameOneToStore);
+        }
+        else
+        {
+            $docNameOneToStore = '';
+        }
+        if($request->hasFile('document2'))
+        {  
+            $documentTwoName = $request->file('document2')->getClientOriginalName();
+            $docNameTwoToStore = $token_id.'_'.$documentTwoName;
+            $path2 = $request->file('document2')->storeAs('Receipts', $docNameTwoToStore);
+        }
+        else
+        {
+            $docNameTwoToStore = '';
+        }
+
         $update = Expense::find($request->requestid);
         $update->amount = $request->amount;
         $update->description = $request->description;
@@ -93,19 +116,11 @@ class ExpensesController extends Controller
         $update->treasurer_approval_status = $request->treasurer_approval_status;
         $update->treasurer_approval_date = $request->treasurer_approval_date;
         $update->process_status = $request->process_status;
-
+        $update->doc_1 = $docNameOneToStore;
+        $update->doc_2 = $docNameTwoToStore;
         $update->update();
 
-        //Handle documents upload
-         //Get document names with extension.
-         $token_id = $request->token_id;
-    
-            $documentOneName = $request->file('document1')->getClientOriginalName();
-            $docNameOneToStore = $token_id.'_'.$documentOneName;
-            $documentTwoName = $request->file('document2')->getClientOriginalName();
-            $docNameTwoToStore = $token_id.'_'.$documentTwoName;
-
-            return $docNameOneToStore;
+        return back();
         
     }
 
