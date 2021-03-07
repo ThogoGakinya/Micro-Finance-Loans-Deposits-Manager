@@ -88,7 +88,23 @@ class PaymentController extends Controller
     {
         $payment = Payment::create($request->all());
 
-        return redirect()->route('admin.payments.index');
+        /* Send SMS to Owners of the Account that has been credited*/
+        $accountOwnersMobileNumbers = User::where('account_id',$request->account_id)->get()
+            ->pluck('mobile_number')->toArray();
+        $date = Carbon::now()->format('d/m/Y');
+        $time = Carbon::now()->format('H:i');
+        $accountName = Account::where('id',$request->account_id)->pluck('account_name')->first();
+        $ourRef = Payment::where('transaction_id',$request->transaction_id)->pluck('id')->first();
+        //$paymentConfirmationSMS = $request->transaction_id." Confirmed. Ksh".number_format($request->amount)." credited to ".$accountName." on ".$date." at ".$time.".\nThank you,\nMUCUA Finance Team";
+        $paymentConfirmationSMS = "Your contribution of Kshs. ".number_format($request->amount)." has been credited to ".$accountName." account on ".$date." at ".$time.
+            "\nOur Ref: ".$ourRef." and MPESA Ref:".$request->transaction_id.
+            ". For more, login to your account by clicking this link:- ".env('APP_URL').
+            "\n\nThank you,\n".env('APP_NAME')." Finance Team";
+        //$paymentConfirmationSMS =  "Your contribution of Kshs. ".number_format($request->amount)." has been credited to ".$accountName." account on ".$date." at ".$time;
+        smsapi()->gateway(env('SEND_SMS_API_GATEWAY'))->sendMessage($accountOwnersMobileNumbers,$paymentConfirmationSMS)->response(); // send SMS to Account owners
+
+        return redirect()->route('admin.accounts.myAccount');
+
     }
 
     public function edit(Payment $payment)
@@ -281,6 +297,10 @@ class PaymentController extends Controller
                            'updated_at'=> Carbon::now());
             Payment::insert($data);
         }
+        // Send SMS To be called here and passed with proper text Message
+        /* Example
+        smsapi()->gateway(env('SEND_SMS_API_GATEWAY'))->sendMessage($accountOwnersMobileNumbers,$paymentConfirmationSMS)->response(); // send SMS to Account owners
+        */
         return view('admin.payments.index');
     }
 
