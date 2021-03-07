@@ -38,7 +38,7 @@ return [
             ],
         ],
         'headers' => [
-            'Content-Type' => env('CONTENT_TYPE'), //Authorization Key
+            'Content-Type' => 'application/json', //Authorization Key
             'Authorization' => env('AUTHORIZATION_HEADER'), //Content type
             //More headers can be added
         ],
