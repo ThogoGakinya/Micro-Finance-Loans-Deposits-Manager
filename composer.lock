@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "d4afbee488a914929f270b5fb69023c8",
+=======
+    "content-hash": "ffc793dd3482f33da31cd892a01a300a",
+>>>>>>> ee24728aa7d8a3001790665a2abdde4f915a6b04
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -1567,6 +1571,76 @@
             "time": "2020-10-22T13:57:20+00:00"
         },
         {
+            "name": "gr8shivam/laravel-sms-api",
+            "version": "3.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gr8shivam/laravel-sms-api.git",
+                "reference": "309b93b597a84bf8b1520395d0d2e639b09386d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gr8shivam/laravel-sms-api/zipball/309b93b597a84bf8b1520395d0d2e639b09386d0",
+                "reference": "309b93b597a84bf8b1520395d0d2e639b09386d0",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0|^7.0",
+                "illuminate/support": "^5.0|^6.0|^7.0|^8.0",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "^5.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gr8Shivam\\SmsApi\\SmsApiServiceProvider"
+                    ],
+                    "aliases": {
+                        "SmsApi": "Gr8Shivam\\SmsApi\\SmsApiFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gr8Shivam\\SmsApi\\": "src"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shivam Agarwal",
+                    "email": "gr8shivam25@gmail.com",
+                    "homepage": "https://github.com/gr8shivam",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel package to provide SMS API integration. Any SMS vendor that provides REST API can be used. SMS-API channel for Laravel notifications also included.",
+            "homepage": "https://github.com/gr8shivam/laravel-sms-api",
+            "keywords": [
+                "laravel notifications",
+                "laravel sms",
+                "laravel sms api",
+                "laravel sms notifications",
+                "laravel sms sender",
+                "laravel sms web api"
+            ],
+            "support": {
+                "issues": "https://github.com/gr8shivam/laravel-sms-api/issues",
+                "source": "https://github.com/gr8shivam/laravel-sms-api/tree/v3.0.4"
+            },
+            "time": "2021-01-06T15:39:09+00:00"
+        },
+        {
             "name": "graham-campbell/result-type",
             "version": "v1.0.1",
             "source": {
@@ -2013,6 +2087,7 @@
         },
         {
             "name": "laravel/framework",
+<<<<<<< HEAD
             "version": "v8.29.0",
             "source": {
                 "type": "git",
@@ -2023,6 +2098,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/framework/zipball/d2eba352b3b3a3c515b18c5726b373fe5026733e",
                 "reference": "d2eba352b3b3a3c515b18c5726b373fe5026733e",
+=======
+            "version": "v8.30.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "81ef9850cc388f2f92b868fb35ffb76f0c9a0f46"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/81ef9850cc388f2f92b868fb35ffb76f0c9a0f46",
+                "reference": "81ef9850cc388f2f92b868fb35ffb76f0c9a0f46",
+>>>>>>> ee24728aa7d8a3001790665a2abdde4f915a6b04
                 "shasum": ""
             },
             "require": {
@@ -2177,6 +2264,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
+<<<<<<< HEAD
             "time": "2021-02-23T14:27:41+00:00"
         },
         {
@@ -2191,6 +2279,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/passport/zipball/2ed01909228b049f6ea0aa2d4b0ae78d3b27bee3",
                 "reference": "2ed01909228b049f6ea0aa2d4b0ae78d3b27bee3",
+=======
+            "time": "2021-03-02T14:28:44+00:00"
+        },
+        {
+            "name": "laravel/passport",
+            "version": "v10.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/passport.git",
+                "reference": "9f1a5d56eb609250104afc38cf407f7c2520cda3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/9f1a5d56eb609250104afc38cf407f7c2520cda3",
+                "reference": "9f1a5d56eb609250104afc38cf407f7c2520cda3",
+>>>>>>> ee24728aa7d8a3001790665a2abdde4f915a6b04
                 "shasum": ""
             },
             "require": {
@@ -2209,7 +2313,11 @@
                 "league/oauth2-server": "^8.2",
                 "nyholm/psr7": "^1.3",
                 "php": "^7.3|^8.0",
+<<<<<<< HEAD
                 "phpseclib/phpseclib": "^3.0",
+=======
+                "phpseclib/phpseclib": "^2.0|^3.0",
+>>>>>>> ee24728aa7d8a3001790665a2abdde4f915a6b04
                 "symfony/psr-http-message-bridge": "^2.0"
             },
             "require-dev": {
@@ -2254,20 +2362,24 @@
                 "issues": "https://github.com/laravel/passport/issues",
                 "source": "https://github.com/laravel/passport"
             },
+<<<<<<< HEAD
             "time": "2021-02-23T20:45:29+00:00"
+=======
+            "time": "2021-03-02T16:40:00+00:00"
+>>>>>>> ee24728aa7d8a3001790665a2abdde4f915a6b04
         },
         {
             "name": "laravel/tinker",
-            "version": "v2.6.0",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/tinker.git",
-                "reference": "daae1c43f1300fe88c05d83db6f3d8f76677ad88"
+                "reference": "04ad32c1a3328081097a181875733fa51f402083"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/tinker/zipball/daae1c43f1300fe88c05d83db6f3d8f76677ad88",
-                "reference": "daae1c43f1300fe88c05d83db6f3d8f76677ad88",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/04ad32c1a3328081097a181875733fa51f402083",
+                "reference": "04ad32c1a3328081097a181875733fa51f402083",
                 "shasum": ""
             },
             "require": {
@@ -2320,9 +2432,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/tinker/issues",
-                "source": "https://github.com/laravel/tinker/tree/v2.6.0"
+                "source": "https://github.com/laravel/tinker/tree/v2.6.1"
             },
-            "time": "2021-01-26T20:35:18+00:00"
+            "time": "2021-03-02T16:53:12+00:00"
         },
         {
             "name": "laravel/ui",
@@ -2445,6 +2557,7 @@
         },
         {
             "name": "lcobucci/jwt",
+<<<<<<< HEAD
             "version": "4.0.1",
             "source": {
                 "type": "git",
@@ -2455,33 +2568,43 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/lcobucci/jwt/zipball/b80c4876a010cd8bfa9c78de64c930bb2fc8fb9a",
                 "reference": "b80c4876a010cd8bfa9c78de64c930bb2fc8fb9a",
+=======
+            "version": "4.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lcobucci/jwt.git",
+                "reference": "c544710aa18e079baf0027ca4c8236913f46945b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/c544710aa18e079baf0027ca4c8236913f46945b",
+                "reference": "c544710aa18e079baf0027ca4c8236913f46945b",
+>>>>>>> ee24728aa7d8a3001790665a2abdde4f915a6b04
                 "shasum": ""
             },
             "require": {
+                "ext-hash": "*",
+                "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-openssl": "*",
+                "ext-sodium": "*",
                 "lcobucci/clock": "^2.0",
                 "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "infection/infection": "^0.20",
+                "infection/infection": "^0.21",
                 "lcobucci/coding-standard": "^6.0",
-                "mikey179/vfsstream": "^1.6",
-                "phpbench/phpbench": "^0.17",
+                "mikey179/vfsstream": "^1.6.7",
+                "phpbench/phpbench": "^1.0@alpha",
                 "phpstan/extension-installer": "^1.0",
                 "phpstan/phpstan": "^0.12",
                 "phpstan/phpstan-deprecation-rules": "^0.12",
                 "phpstan/phpstan-phpunit": "^0.12",
                 "phpstan/phpstan-strict-rules": "^0.12",
                 "phpunit/php-invoker": "^3.1",
-                "phpunit/phpunit": "^9.4"
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.0-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Lcobucci\\JWT\\": "src"
@@ -2505,7 +2628,11 @@
             ],
             "support": {
                 "issues": "https://github.com/lcobucci/jwt/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/lcobucci/jwt/tree/4.0.1"
+=======
+                "source": "https://github.com/lcobucci/jwt/tree/4.1.2"
+>>>>>>> ee24728aa7d8a3001790665a2abdde4f915a6b04
             },
             "funding": [
                 {
@@ -2517,7 +2644,11 @@
                     "type": "patreon"
                 }
             ],
+<<<<<<< HEAD
             "time": "2021-01-28T00:13:50+00:00"
+=======
+            "time": "2021-02-19T19:37:15+00:00"
+>>>>>>> ee24728aa7d8a3001790665a2abdde4f915a6b04
         },
         {
             "name": "league/commonmark",
@@ -4895,30 +5026,29 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "9.4.2",
+            "version": "8.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "fe8dcb2a56b3061cd29d072c1e983a1e035a1671"
+                "reference": "72b408972ba0b994eb52f39d38169621699e549b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/fe8dcb2a56b3061cd29d072c1e983a1e035a1671",
-                "reference": "fe8dcb2a56b3061cd29d072c1e983a1e035a1671",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/72b408972ba0b994eb52f39d38169621699e549b",
+                "reference": "72b408972ba0b994eb52f39d38169621699e549b",
                 "shasum": ""
             },
             "require": {
-                "ext-exif": "*",
                 "ext-fileinfo": "*",
                 "ext-json": "*",
-                "illuminate/bus": "^7.0|^8.0",
-                "illuminate/console": "^7.0|^8.0",
-                "illuminate/database": "^7.0|^8.0",
-                "illuminate/pipeline": "^7.0|^8.0",
-                "illuminate/support": "^7.0|^8.0",
+                "illuminate/bus": "^6.18|^7.0|^8.0",
+                "illuminate/console": "^6.18|^7.0|^8.0",
+                "illuminate/database": "^6.18|^7.0|^8.0",
+                "illuminate/pipeline": "^6.18|^7.0|^8.0",
+                "illuminate/support": "^6.18|^7.0|^8.0",
                 "league/flysystem": "^1.0.64",
                 "maennchen/zipstream-php": "^1.0|^2.0",
-                "php": "^7.4|^8.0",
+                "php": "^7.4",
                 "spatie/image": "^1.4.0",
                 "spatie/temporary-directory": "^1.1",
                 "symfony/console": "^4.4|^5.0"
@@ -4934,7 +5064,8 @@
                 "guzzlehttp/guzzle": "^6.3|^7.0",
                 "league/flysystem-aws-s3-v3": "^1.0.23",
                 "mockery/mockery": "^1.3",
-                "orchestra/testbench": "^5.0|^6.0",
+                "orchestra/testbench": "^4.0|^5.0|^6.0",
+                "php-ffmpeg/php-ffmpeg": "^0.16.0",
                 "phpunit/phpunit": "^9.1",
                 "spatie/pdf-to-image": "^2.0",
                 "spatie/phpunit-snapshot-assertions": "^4.0"
@@ -4983,7 +5114,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-medialibrary/issues",
-                "source": "https://github.com/spatie/laravel-medialibrary/tree/9.4.2"
+                "source": "https://github.com/spatie/laravel-medialibrary/tree/8.10.1"
             },
             "funding": [
                 {
@@ -4995,7 +5126,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-01-15T07:55:54+00:00"
+            "time": "2020-10-05T21:54:57+00:00"
         },
         {
             "name": "spatie/temporary-directory",
@@ -8066,27 +8197,26 @@
         },
         {
             "name": "fzaninotto/faker",
-            "version": "dev-master",
+            "version": "v1.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "5ffe7db6c80f441f150fc88008d64e64af66634b"
+                "reference": "848d8125239d7dbf8ab25cb7f054f1a630e68c2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/5ffe7db6c80f441f150fc88008d64e64af66634b",
-                "reference": "5ffe7db6c80f441f150fc88008d64e64af66634b",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/848d8125239d7dbf8ab25cb7f054f1a630e68c2e",
+                "reference": "848d8125239d7dbf8ab25cb7f054f1a630e68c2e",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3 || ^7.0 || ^8.0"
+                "php": "^5.3.3 || ^7.0"
             },
             "require-dev": {
                 "ext-intl": "*",
                 "phpunit/phpunit": "^4.8.35 || ^5.7",
                 "squizlabs/php_codesniffer": "^2.9.2"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -8115,10 +8245,10 @@
             ],
             "support": {
                 "issues": "https://github.com/fzaninotto/Faker/issues",
-                "source": "https://github.com/fzaninotto/Faker/tree/master"
+                "source": "https://github.com/fzaninotto/Faker/tree/v1.9.2"
             },
             "abandoned": true,
-            "time": "2020-12-11T09:59:14+00:00"
+            "time": "2020-12-11T09:56:16+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",

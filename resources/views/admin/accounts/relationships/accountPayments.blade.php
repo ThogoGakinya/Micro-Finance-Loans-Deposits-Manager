@@ -1,18 +1,18 @@
 <div class="m-3">
 
-    <div class="card">
+    <div class="card card-secondary">
         <div class="card-header">
-            Payments List
+           <h6> <i class="fas fa-money"></i> Payment List
             @can('payment_create')
-                <a class="btn btn-success float-right" href="{{ route('admin.payments.create') }}">
-                    Make Payment
+                <a class="btn btn-success float-right btn-xs" href="{{ route('admin.payments.create') }}">
+                <i class="fa fa-plus"></i> Make Payment
                 </a>
             @endcan
+            </h6>
         </div>
-
-        <div class="card-body">
+        <br/>
             <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-accountPayments">
+                <table class="customers-actions table-bordered table-striped table-hover datatable datatable-accountPayments">
                     <thead>
                     <tr>
                         <th width="10">
@@ -83,7 +83,7 @@
             let deleteButton = {
                 text: deleteButtonTrans,
                 url: "{{ route('admin.payments.massDestroy') }}",
-                className: 'btn-danger',
+                className: 'btn-danger btn-xs',
                 action: function (e, dt, node, config) {
                     var ids = $.map(dt.rows({selected: true}).nodes(), function (entry) {
                         return $(entry).data('entry-id')

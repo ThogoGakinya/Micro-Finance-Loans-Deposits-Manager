@@ -34,6 +34,7 @@ Route::delete('accounts/destroy', 'AccountController@massDestroy')->name('accoun
 Route::resource('accounts', 'AccountController');
 
 // Payments
+    Route::get('notifications/sendSMS',  'PaymentController@sendSMS')->name('notifications.sendSMS');
 Route::post('payments/initiate-transaction',  'PaymentController@stkPush')->name('payments.stk-initial');
 Route::post('payments/finish',  'PaymentController@finishTransaction')->name('payments.finish');
 Route::get('payments/pay',  'PaymentController@getPaymentForm')->name('payments.pay');

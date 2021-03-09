@@ -5,7 +5,9 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-6" align="left">
-                <h5>Monthly Premiums</h5>
+                <h5>
+                <a href="{{route('admin.home')}}" class="btn btn-success btn-xs" id="edit_goal"><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a>
+                Monthly Premiums</h5>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right" style="border-bottom: 0px solid;">
@@ -23,17 +25,17 @@
             <div class="container-fluid winbox-white">
                 <div class="tab-content"  style="margin-top:16px;">
  <!--------------------------------- Page content begins here ------------------------->
-                    <div class="card">
+                    <div class="card card-secondary">
                             <div class="card-header">
+                               <h6><i class="fa fa-money"></i>
                                 Payments List
                                 @can('payment_create')
-                                    <a class="btn btn-success float-right" href="{{ route('admin.payments.pay') }}">
+                                    <a class="btn btn-success float-right btn-xs" href="{{ route('admin.payments.pay') }}">
                                        <i class="fa fa-plus"></i> Make Payment
                                     </a>
                                 @endcan
-                            </div>
-
-                            <div class="card-body">
+                                </h6>
+                            </div><br/>
                                 <div class="table-responsive">
                                     <table class="customers-actions table-hover ajaxTable datatable datatable-Payment">
                                         <thead>
@@ -91,7 +93,7 @@
                                         @endforeach
                                         </tbody>--}}
                                     </table>
-                                </div>
+                              
                             </div>
                         </div>
  <!--------------------------------- Page content ends here---------------------------->
@@ -155,7 +157,7 @@
                 ],
                 orderCellsTop: true,
                 order: [[1, 'desc']],
-                pageLength: 100,
+                pageLength: 10,
             };
             let table = $('.datatable-Payment').DataTable(dtOverrideGlobals);
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function (e) {

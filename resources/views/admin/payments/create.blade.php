@@ -5,7 +5,7 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-6" align="left">
-                <h5>Make Payment</h5>
+                <h5> <a href="{{route ('admin.home')}}" class="btn btn-success btn-xs" ><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a> Make Payment</h5>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right" style="border-bottom: 0px solid;">
@@ -23,17 +23,17 @@
             <div class="container-fluid winbox-white">
                 <div class="tab-content"  style="margin-top:16px;">
  <!--------------------------------- Page content begins here ------------------------->
-                 <div class="tab-pane active" id="login_details">
-                  <div class="panel panel-default">
-                   <div class="panel-heading">
-                      <a href="{{route ('admin.home')}}" class="btn btn-default btn-xs" ><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a>
-                    </div>
+          <div class="card card-secondary">
+                  <div class="card-header">
+                    <h6> <i class="fas fa-money"></i> Create Payment
+                    </h6>
+                  </div><br/>
                       <div class="row">
                         <div class="col-md-6">
                             <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">
-                                  <a data-toggle="collapse" id="primary" data-parent="#accordion" href="#collapsePrimary" class="btn btn-primary">
+                                  <a data-toggle="collapse" id="primary" data-parent="#accordion" href="#collapsePrimary" class="btn btn-info">
                                   <i class="fas fa-plus-circle"></i> Credit Primary Account
                                   </a>
                                 </h4>
@@ -135,7 +135,7 @@
                             <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">
-                                  <a data-toggle="collapse" id="primary_2" data-parent="#accordion" href="#collapseSecondary" class="btn btn-primary">
+                                  <a data-toggle="collapse" id="primary_2" data-parent="#accordion" href="#collapseSecondary" class="btn btn-info">
                                     <i class="fas fa-plus-circle"></i> Credit Secondary Account
                                   </a>
                                 </h4>

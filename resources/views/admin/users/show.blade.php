@@ -1,10 +1,39 @@
 @extends('layouts.admin')
-@section('content')
-
-
-    <div class="row gutters-sm">
+    @section('content')
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row">
+               <div class="col-sm-6" align="left">
+                <h5><a href="{{route('admin.users.index')}}" class="btn btn-success btn-xs" id="edit_goal"><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a>
+                 View User Profile 
+                </h5>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right" style="border-bottom: 0px solid;">
+                  <li class="breadcrumb-item"><a href="{{ route('admin.home')}}">Dashboard</a></li>
+                  <li class="breadcrumb-item active">Users</li>
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+    
+    <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid winbox-white">
+                <div class="tab-content"  style="margin-top:16px;">
+ <!--------------------------------- Page content begins here ------------------------->
+ <div class="card card-secondary">
+       
+        <div class="card-body">
+        <div class="row gutters-sm">
         <div class="col-md-4 mb-3">
-            <div class="card">
+            <div class="card card-secondary">
+                <div class="card-header">
+                   <h6><i class="fa fa-user"></i> Profile Details</h6>
+                </div>
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
                         @if($user->photo)
@@ -28,15 +57,10 @@
                             <button class="btn btn-outline-primary">Message</button>--}}
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="card mb-3">
-                <div class="card-body">
+                    <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3">
-                            <h6 class="mb-0">Full Name</h6>
+                            <h6 class="mb-0">Name</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
                             {{$user->name}}
@@ -66,15 +90,18 @@
                             <h6 class="mb-0">Address</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            Kilimani Area, Nairobi City - Kenya
+                            Kilimani Area, Nairobi City
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
+        </div>
+        <div class="col-md-8">
             {{----}}
-            <div class="card mb-3">
+            <div class="card card-secondary">
                 <div class="card-header">
-                    Recent Payments for <strong>{{$account_name}}</strong>
+                    Recent Payments for <strong> {{$user->name}}</strong> on account <strong>{{$account_name}}</strong>
                 </div>
 
                 <div class="card-body">
@@ -102,4 +129,13 @@
                 </div>
             </div>
         </div>
+        </div>
+</div>               
+ 
+
+
+ <!--------------------------------- Page content ends here---------------------------->
+                 </div> <!-- end of tab-content-->
+            </div><!--container-fluid -->
+        </section>
 @endsection

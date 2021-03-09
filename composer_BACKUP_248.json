@@ -23,11 +23,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
-<<<<<<< HEAD
         "spatie/laravel-medialibrary": "^9.4",
-=======
-        "spatie/laravel-medialibrary": "^8.7.0",
->>>>>>> ee24728aa7d8a3001790665a2abdde4f915a6b04
         "yajra/laravel-datatables-oracle": "^9.11"
     },
     "require-dev": {

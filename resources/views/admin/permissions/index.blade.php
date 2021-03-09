@@ -1,14 +1,39 @@
 @extends('layouts.admin')
-@section('content')
-    <div class="card">
+    @section('content')
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row">
+               <div class="col-sm-6" align="left">
+                <h5><a href="" class="btn btn-success btn-xs" id="edit_goal"><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a>
+                  Permissions 
+                </h5>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right" style="border-bottom: 0px solid;">
+                  <li class="breadcrumb-item"><a href="{{ route('admin.home')}}">Dashboard</a></li>
+                  <li class="breadcrumb-item active">Permissions</li>
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+    
+    <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid winbox-white">
+                <div class="tab-content"  style="margin-top:16px;">
+ <!--------------------------------- Page content begins here ------------------------->
+ <div class="card card-secondary">
         <div class="card-header">
-            Permissions List
+        <h6> <i class="fas fa-lock"></i> Permissions
         @can('permission_create')
-
-                <a class="btn btn-success float-right" href="{{ route('admin.permissions.create') }}">
-                    New Permission
+                <a class="btn btn-success float-right btn-xs" href="{{ route('admin.permissions.create') }}">
+                <i class="fas fa-plus"></i> New Permission
                 </a>
             @endcan
+        </h6>
         </div>
 
         <div class="card-body">
@@ -66,8 +91,16 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div>          
+ 
+
+
+ <!--------------------------------- Page content ends here---------------------------->
+                 </div> <!-- end of tab-content-->
+            </div><!--container-fluid -->
+        </section>
 @endsection
+
 @section('scripts')
     @parent
     <script>
@@ -109,7 +142,7 @@
             $.extend(true, $.fn.dataTable.defaults, {
                 orderCellsTop: true,
                 order: [[1, 'desc']],
-                pageLength: 100,
+                pageLength: 10,
             });
             let table = $('.datatable-Permission:not(.ajaxTable)').DataTable({buttons: dtButtons})
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function (e) {

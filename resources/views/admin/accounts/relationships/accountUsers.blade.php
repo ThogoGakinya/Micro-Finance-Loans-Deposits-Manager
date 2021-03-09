@@ -1,17 +1,16 @@
 <div class="m-3">
-    <div class="card">
+    <div class="card card-secondary">
         <div class="card-header">
-            Account Owner(s)/Contributor(s)
+           <h6> <i class="fas fa-user"></i> Account Owner(s)/Contributor(s)
             @can('user_create')
-                <a class="btn btn-success float-right" href="{{ route('admin.users.create') }}">
-                    Add a Contributor
+                <a class="btn btn-success float-right btn-xs" href="{{ route('admin.users.create') }}">
+                <i class="fa fa-plus"></i> Add a Contributor
                 </a>
             @endcan
-        </div>
-
-        <div class="card-body">
+            </h6>
+        </div><br/>
             <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-accountUsers">
+                <table class="customers-actions table table-bordered table-striped table-hover datatable datatable-accountUsers">
                     <thead>
                     <tr>
                         <th></th>
@@ -79,7 +78,7 @@
             </div>
         </div>
     </div>
-</div>
+
 @section('scripts')
     @parent
     <script>

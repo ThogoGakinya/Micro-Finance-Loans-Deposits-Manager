@@ -1,16 +1,40 @@
 @extends('layouts.admin')
-@section('content')
-    <div class="card">
+    @section('content')
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row">
+               <div class="col-sm-6" align="left">
+                <h5><a href="{{route('admin.home')}}" class="btn btn-success btn-xs" id="edit_goal"><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a>
+                  User Accounts 
+                </h5>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right" style="border-bottom: 0px solid;">
+                  <li class="breadcrumb-item"><a href="{{ route('admin.home')}}">Dashboard</a></li>
+                  <li class="breadcrumb-item active">User-accouts</li>
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+    
+    <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid winbox-white">
+                <div class="tab-content"  style="margin-top:16px;">
+ <!--------------------------------- Page content begins here ------------------------->
+ <div class="card card-secondary">
         <div class="card-header">
-            Users List
+           <h6> <i class="fa fa-users"></i> Users List
             @can('user_create')
-                <a class="btn btn-success float-right" href="{{ route('admin.users.create') }}">
-                    New User
+                <a class="btn btn-success float-right btn-xs" href="{{ route('admin.users.create') }}">
+                <i class="fa fa-plus"></i> New User
                 </a>
             @endcan
-        </div>
-
-        <div class="card-body">
+            </h6>
+        </div><br/>
             <div class="table-responsive">
                 <table class="customers-actions table-striped table-hover datatable datatable-User">
                     <thead>
@@ -73,11 +97,16 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div>               
+ 
 
 
-
+ <!--------------------------------- Page content ends here---------------------------->
+                 </div> <!-- end of tab-content-->
+            </div><!--container-fluid -->
+        </section>
 @endsection
+
 @section('scripts')
     @parent
     <script>

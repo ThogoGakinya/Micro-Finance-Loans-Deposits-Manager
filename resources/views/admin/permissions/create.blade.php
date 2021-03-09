@@ -1,10 +1,34 @@
 @extends('layouts.admin')
-@section('content')
-
-    <div class="card">
-        <div class="card-header">
-         Create New Permission
+    @section('content')
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row">
+               <div class="col-sm-6" align="left">
+                <h5><a href="{{route('admin.permissions.index')}}" class="btn btn-success btn-xs" id="edit_goal"><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a>
+                  Add Permission
+                </h5>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right" style="border-bottom: 0px solid;">
+                  <li class="breadcrumb-item"><a href="{{ route('admin.home')}}">Dashboard</a></li>
+                  <li class="breadcrumb-item active">Admin</li>
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
         </div>
+        <!-- /.content-header -->
+    
+    <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid winbox-white">
+                <div class="tab-content"  style="margin-top:16px;">
+ <!--------------------------------- Page content begins here ------------------------->
+ <div class="card card-secondary">
+                <div class="card-header">
+                    <h6> <i class="fas fa-plus"></i> Create Permission</h6>
+                  </div><br/>
         <div class="card-body">
             <form method="POST" action="{{ route("admin.permissions.store") }}" enctype="multipart/form-data">
                 @csrf
@@ -22,5 +46,12 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div>         
+ 
+
+
+ <!--------------------------------- Page content ends here---------------------------->
+                 </div> <!-- end of tab-content-->
+            </div><!--container-fluid -->
+        </section>
 @endsection

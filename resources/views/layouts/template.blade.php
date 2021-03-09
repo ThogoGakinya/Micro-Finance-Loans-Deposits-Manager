@@ -4,8 +4,10 @@
         <div class="content-header">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-sm-6" align="left">
-                <h5>Admin Dashboard</h5>
+               <div class="col-sm-6" align="left">
+                <h5><a href="{{route('')}}" class="btn btn-success btn-xs" id="edit_goal"><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a>
+                  View Premium Account 
+                </h5>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right" style="border-bottom: 0px solid;">

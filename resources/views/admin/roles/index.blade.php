@@ -1,16 +1,42 @@
 @extends('layouts.admin')
-@section('content')
-    <div class="card">
+    @section('content')
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row">
+               <div class="col-sm-6" align="left">
+                <h5><a href="{{route('admin.home')}}" class="btn btn-success btn-xs" id="edit_goal"><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a>
+                  User Roles 
+                </h5>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right" style="border-bottom: 0px solid;">
+                  <li class="breadcrumb-item"><a href="{{ route('admin.home')}}">Dashboard</a></li>
+                  <li class="breadcrumb-item active">Roles</li>
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+    
+    <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid winbox-white">
+                <div class="tab-content"  style="margin-top:16px;">
+ <!--------------------------------- Page content begins here ------------------------->
+                   
+ <div class="card card-secondary">
         <div class="card-header">
+        <h6>
             Role List
             @can('role_create')
-                <a class="btn btn-success float-right" href="{{ route('admin.roles.create') }}">
-                    New Role
+                <a class="btn btn-success float-right btn-xs" href="{{ route('admin.roles.create') }}">
+                <i class="fa fa-plus"></i> New Role
                 </a>
             @endcan
-        </div>
-
-        <div class="card-body">
+        </h6>
+        </div><br/>
             <div class="table-responsive">
                 <table class=" table table-bordered table-striped table-hover datatable datatable-Role">
                     <thead>
@@ -41,14 +67,14 @@
                             </td>
                             <td>
                                 @can('role_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.roles.show', $role->id) }}">
-                                        {{ trans('global.view') }}
+                                    <a href="{{ route('admin.roles.show', $role->id) }}">
+                                        <i class="fa fa-eye"></i>
                                     </a>
                                 @endcan
 
                                 @can('role_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.roles.edit', $role->id) }}">
-                                        {{ trans('global.edit') }}
+                                    <a href="{{ route('admin.roles.edit', $role->id) }}">
+                                      <i class="fa fa-edit"></i>
                                     </a>
                                 @endcan
 
@@ -70,7 +96,13 @@
             </div>
         </div>
     </div>
+
+ <!--------------------------------- Page content ends here---------------------------->
+                 </div> <!-- end of tab-content-->
+            </div><!--container-fluid -->
+        </section>
 @endsection
+
 @section('scripts')
     @parent
     <script>
@@ -112,7 +144,7 @@
             $.extend(true, $.fn.dataTable.defaults, {
                 orderCellsTop: true,
                 order: [[1, 'desc']],
-                pageLength: 100,
+                pageLength: 10,
             });
             let table = $('.datatable-Role:not(.ajaxTable)').DataTable({buttons: dtButtons})
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function (e) {
