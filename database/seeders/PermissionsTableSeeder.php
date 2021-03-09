@@ -118,6 +118,30 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 27,
                 'title' => 'profile_password_edit',
             ],
+            [
+                'id'    => 28,
+                'title' => 'minute_access',
+            ],
+            [
+                'id'    => 29,
+                'title' => 'minute_create',
+            ],
+            [
+                'id'    => 30,
+                'title' => 'minute_edit',
+            ],
+            [
+                'id'    => 31,
+                'title' => 'minute_show',
+            ],
+            [
+                'id'    => 32,
+                'title' => 'minute_delete',
+            ],
+            [
+                'id'    => 33,
+                'title' => 'my_account',
+            ],
         ];
 
         Permission::insert($permissions);

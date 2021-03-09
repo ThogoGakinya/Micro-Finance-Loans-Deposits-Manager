@@ -25,7 +25,7 @@ class PaymentActionObserver
         //$lastRecord = DB::table('payments')->orderBy('id', 'DESC')->first();
         //$user = \App\Models\User::where('account_id',$lastRecord->account_id)->get();
         $treasurers = \App\Models\User::whereHas('roles', function ($q) {
-            return $q->where('title','Admin');
+            return $q->where('title','Treasurer');
         })->get();
 
         $lastRecord = Payment::with('account')->orderBy('id', 'DESC')->first();
