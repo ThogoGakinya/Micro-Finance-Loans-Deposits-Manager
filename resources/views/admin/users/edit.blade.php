@@ -79,6 +79,19 @@
                         <span class="text-danger">{{ $errors->first('roles') }}</span>
                     @endif
                 </div>
+                <div class="form-group">
+                    <label>Account</label>
+                    <select class="form-control" name="account_id">
+                      @if(empty($user->account_id))
+                         <option value="">Please assign an Account</option>
+                      @else
+                         <option value="{{$user->account_id}}">{{$user->account->account_name}}</option>
+                      @endif
+                        @foreach($accounts as $account)
+                        <option value="{{$account->id}}">{{$account->account_name}}</option>
+                        @endforeach   
+                    </select>
+                </div>
                 </div>
                 <div class="col-md-6">
                 <div class="form-group">

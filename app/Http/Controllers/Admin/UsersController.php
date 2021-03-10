@@ -55,14 +55,15 @@ class UsersController extends Controller
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $roles = Role::all()->pluck('title', 'id');
-
+        $accounts = Account::all();
         $user->load('roles');
 
-        return view('admin.users.edit', compact('roles', 'user'));
+        return view('admin.users.edit', compact('roles', 'user', 'accounts'));
     }
 
     public function update(Request $request, User $user)
     {
+        $user->account_id = $request->account_id;
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
 
@@ -119,5 +120,14 @@ class UsersController extends Controller
         $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
+    }
+
+    public function attach(Request $request, Account $account)
+    {
+        $user = User::find($request->user_id);
+        $user->account_id = $request->account_id;
+        $user->update();
+
+        return back();
     }
 }

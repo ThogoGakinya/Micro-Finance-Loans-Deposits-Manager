@@ -3,7 +3,7 @@
         <div class="card-header">
            <h6> <i class="fas fa-user"></i> Account Owner(s)/Contributor(s)
             @can('user_create')
-                <a class="btn btn-success float-right btn-xs" href="{{ route('admin.users.create') }}">
+                <a class="btn btn-success float-right btn-xs" href="" data-toggle="modal" data-target="#add-contributor">
                 <i class="fa fa-plus"></i> Add a Contributor
                 </a>
             @endcan

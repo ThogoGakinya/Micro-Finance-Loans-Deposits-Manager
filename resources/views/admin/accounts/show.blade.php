@@ -24,9 +24,9 @@
           <section class="content">
             <div class="container-fluid winbox-white">
                 <div class="tab-content"  style="margin-top:16px;">
- <!--------------------------------- Page content begins here ------------------------->
+  <!--------------------------------- Page content begins here ------------------------->
                    
-     <div>
+  <div>
         @if (empty($account->id))
             <div class="callout callout-danger">
                 <h5><i class="fas fa-info"></i> Note:</h5>
@@ -53,22 +53,23 @@
               <div class="card-body">
                 <div class="chart">
                     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+                       
                         <li class="nav-item">
-                            <a class="nav-link active" href="#account_users" role="tab" data-toggle="tab">
-                                Owner(s)/Contributor(s)
+                            <a class="nav-link active" href="#account_payments" role="tab" data-toggle="tab">
+                                Payments History
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#account_payments" role="tab" data-toggle="tab">
-                                Payments History
+                            <a class="nav-link" href="#account_users" role="tab" data-toggle="tab">
+                                Owner(s)/Contributor(s)
                             </a>
                         </li>
                      </ul>
                  <div class="tab-content">
-                    <div class="tab-pane active" role="tabpanel" id="account_users">
+                    <div class="tab-pane" role="tabpanel" id="account_users">
                         @includeIf('admin.accounts.relationships.accountUsers', ['users' => $account->accountUsers])
                     </div>
-                    <div class="tab-pane" role="tabpanel" id="account_payments">
+                    <div class="tab-pane active" role="tabpanel" id="account_payments">
                         @includeIf('admin.accounts.relationships.accountPayments', ['payments' => $account->accountPayments])
                     </div>
                 </div>
@@ -84,5 +85,42 @@
                  </div> <!-- end of tab-content-->
             </div><!--container-fluid -->
         </section>
+
+  
+<!-- start of the modal form to add a payment entry -->
+<div class="modal fade" id="add-contributor">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="card">
+        <div class="card-header">Create a contributor
+        </div>
+
+        <div class="card-body">
+            <form method="POST" action="{{ route("admin.users.attach", [$account->id]) }}" enctype="multipart/form-data">
+                @method('PUT')
+                @csrf
+                <div class="form-group">
+                    <label for="amount">Select Contributor</label>
+                    <select class="form-control" name="user_id" id="amount" required>
+                         <option value="">Select Contributor</option>
+                          @foreach($users as $user)
+                            <option value="{{$user->id}}">{{$user->name}}</option>
+                          @endforeach
+                    </select>
+                    <input type="hidden" value="{{  $account->id ?? ''}}" name="account_id">
+                </div>
+               
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit">
+                        Create
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+            </div>   <!-- /.modal-content -->
+        </div>
+    </div><!-- /.modal-dialog -->
+<!-- end of the modal form to add a cash request-->
 @endsection
 

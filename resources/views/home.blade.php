@@ -133,7 +133,7 @@
                                 <div class="icon">
                                     <i class="fa fa-plus"></i>
                                 </div>
-                                <a href="{{ route('admin.payments.pay') }}" class="small-box-footer">
+                                <a href="" data-toggle="modal" data-target="#add-payment" class="small-box-footer">
                                     Initiate <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -309,6 +309,76 @@
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
+
+<!-- start of the modal form to add a payment entry -->
+<div class="modal fade" id="add-payment">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="card">
+        <div class="card-header">Make a Payment
+        </div>
+
+        <div class="card-body">
+        @if(empty($account_name))
+            <div class="callout callout-danger">
+                <h5><i class="fas fa-info"></i> Note:</h5>
+                Dear <strong>{{ Auth::user()->name }}, </strong> There is no Account linked to you at the moment,Please contact your System Administrator
+            </div>
+        @else
+            <form method="POST" action="{{ route("admin.payments.store") }}" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for="amount">Your Account Name</label>
+                    <input class="form-control" type="text" name="amount" id="amount" value="{{$account_name}}" readonly>
+                    <input class="form-control" type="hidden" name="account_id"  value="{{auth::user()->account_id}}">
+                   
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount to Pay</label>
+                    <input class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}" type="number"
+                           name="amount" id="amount" value="{{ old('amount', '') }}" step="0.01">
+                    @if($errors->has('amount'))
+                        <span class="text-danger">{{ $errors->first('amount') }}</span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="amount">MPESA ID</label>
+                    <input class="form-control {{ $errors->has('transaction_id') ? 'is-invalid' : '' }}" type="text"
+                           name="transaction_id" id="transaction_id" value="{{ old('transaction_id', '') }}">
+                    @if($errors->has('transaction_id'))
+                        <span class="text-danger">{{ $errors->first('transaction_id') }}</span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="month">Month</label>
+                    <input class="form-control {{ $errors->has('month') ? 'is-invalid' : '' }}" type="text" name="month"
+                           id="month" value="{{ old('month', '') }}">
+                    @if($errors->has('month'))
+                        <span class="text-danger">{{ $errors->first('month') }}</span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <input class="form-control {{ $errors->has('year') ? 'is-invalid' : '' }}" type="text" name="year"
+                           id="year" value="{{ old('year', '') }}">
+                    @if($errors->has('year'))
+                        <span class="text-danger">{{ $errors->first('year') }}</span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit">
+                        Complete
+                    </button>
+                </div>
+            </form>
+        @endif
+        </div>
+    </div>
+            </div>   <!-- /.modal-content -->
+        </div>
+    </div><!-- /.modal-dialog -->
+<!-- end of the modal form to add a cash request-->
+
 @endsection
 @section('scripts')
     @parent

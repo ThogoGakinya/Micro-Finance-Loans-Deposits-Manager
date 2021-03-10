@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,8 +53,9 @@ class AccountController extends Controller
         abort_if(Gate::denies('account_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $account->load('accountUsers', 'accountPayments');
+        $users = User::WhereNull('account_id')->get();
 
-        return view('admin.accounts.show', compact('account'));
+        return view('admin.accounts.show', compact('account','users'));
     }
     public function myAccount()
     {

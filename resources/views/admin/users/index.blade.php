@@ -46,8 +46,9 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Role</th>
+                        <th>Linked Account</th>
                         <th>
-                            &nbsp;
+                            Actions
                         </th>
                     </tr>
                     </thead>
@@ -64,6 +65,13 @@
                                 @foreach($user->roles as $key => $item)
                                     <span class="badge badge-info">{{ $item->title }}</span>
                                 @endforeach
+                            </td>
+                            <td>
+                                @if(empty($user->account_id ?? ''))
+                                         <span class="badge badge-warning" title="No active account"><i class="fa fa-info"></i></span>
+                                @else
+                                         <span class="badge badge-success" title="Active account"><i class="fa fa-check"></i></span>
+                                @endif
                             </td>
                             <td>
                                 @can('user_show')
