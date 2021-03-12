@@ -6,7 +6,7 @@
             <div class="row">
                <div class="col-sm-6" align="left">
                 <h5><a href="{{route('admin.users.index')}}" class="btn btn-success btn-xs" id="edit_goal"><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a>
-                  Add User 
+                  Add User
                 </h5>
               </div><!-- /.col -->
               <div class="col-sm-6">
@@ -19,14 +19,14 @@
           </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-    
+
     <!-- Main content -->
           <section class="content">
             <div class="container-fluid winbox-white">
                 <div class="tab-content"  style="margin-top:16px;">
  <!--------------------------------- Page content begins here ------------------------->
-                   
- 
+
+
  <div class="card card-secondary">
         <div class="card-header">
            <h6><i class="fa fa-plus"></i> Create User</h6>
@@ -57,31 +57,16 @@
                         <span class="text-danger">{{ $errors->first('password') }}</span>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label class="required" for="roles">Role</label>
-                    <div style="padding-bottom: 4px">
-                        <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                        <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                    </div>
-                    <select class="form-control select2 {{ $errors->has('roles') ? 'is-invalid' : '' }}" name="roles[]" id="roles" multiple required>
-                        @foreach($roles as $id => $roles)
-                            <option value="{{ $id }}" {{ in_array($id, old('roles', [])) ? 'selected' : '' }}>{{ $roles }}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('roles'))
-                        <span class="text-danger">{{ $errors->first('roles') }}</span>
-                    @endif
-                </div>
                 </div></div>
                 <div class="col-md-6">
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         <label for="photo">Profile Photo</label>
                         <div class="needsclick dropzone {{ $errors->has('photo') ? 'is-invalid' : '' }}" id="photo-dropzone">
                         </div>
                         @if($errors->has('photo'))
                             <span class="text-danger">{{ $errors->first('photo') }}</span>
                         @endif
-                    </div>
+                    </div>--}}
                     <div class="form-group">
                         <label for="mobile_number">Mobile Number</label>
                         <input class="form-control {{ $errors->has('mobile_number') ? 'is-invalid' : '' }}" type="tel" name="mobile_number" id="mobile_number" value="{{ old('mobile_number', '') }}">
@@ -94,6 +79,21 @@
                         <input class="form-control {{ $errors->has('national') ? 'is-invalid' : '' }}" type="number" name="national" id="national" value="{{ old('national', '') }}">
                         @if($errors->has('national'))
                             <span class="text-danger">{{ $errors->first('national') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label class="required" for="roles">Role</label>
+                        <div style="padding-bottom: 4px">
+                            <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                            <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                        </div>
+                        <select class="form-control select2 {{ $errors->has('roles') ? 'is-invalid' : '' }}" name="roles[]" id="roles" multiple required>
+                            @foreach($roles as $id => $roles)
+                                <option value="{{ $id }}" {{ in_array($id, old('roles', [])) ? 'selected' : '' }}>{{ $roles }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('roles'))
+                            <span class="text-danger">{{ $errors->first('roles') }}</span>
                         @endif
                     </div>
                 <div class="form-group">
