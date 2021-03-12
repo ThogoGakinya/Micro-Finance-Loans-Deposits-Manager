@@ -26,6 +26,10 @@ Route::resource('roles', 'RolesController');
 Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
 Route::post('users/media', 'UsersController@storeMedia')->name('users.storeMedia');
 Route::put('users/attach/{id}', 'UsersController@attach')->name('users.attach');
+Route::put('users/self/{id}', 'UsersController@selfUpdate')->name('users.self-update');
+Route::put('users/profile/{id}', 'UsersController@changeProfile')->name('users.change-profile');
+Route::get('profile/',  'UsersController@getprofileForm')->name('users.profile');
+Route::post('users/password', 'UsersController@changePassword')->name('users.password');
 Route::post('users/ckmedia', 'UsersController@storeCKEditorImages')->name('users.storeCKEditorImages');
 Route::resource('users', 'UsersController');
 
@@ -47,6 +51,7 @@ Route::resource('payments', 'PaymentController');
 // Finance and Expenses
 Route::get('finance/treasurer',  'ExpensesController@fetchTreasurerExpenses')->name('treasurer_expenses');
 Route::get('finance/chair',  'ExpensesController@fetchChairExpenses')->name('chair_expenses');
+Route::put('finance/remove/{id}', 'ExpensesController@removeDocument')->name('finance.remove');
 Route::resource('finance', 'ExpensesController');
 
 

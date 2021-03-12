@@ -30,7 +30,7 @@
 </head>
 
 <body class="c-app">
-@include('partials.menu')
+
 <div class="c-wrapper">
     <header class="c-header c-header-fixed px-3" style="background-color:#3c8dbc; height:45px; color:#ffffff;">
         <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show" style="color:#fff;">
@@ -60,7 +60,7 @@
                     {{strtoupper(auth()->user()->name)}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="{{route('admin.users.profile')}}" class="dropdown-item">
+                    <a href="#" class="dropdown-item">
                         <i class="fas fa-user mr-2"></i> Profile
                     </a>
                     <div class="dropdown-divider"></div>
