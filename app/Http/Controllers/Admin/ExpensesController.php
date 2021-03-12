@@ -93,7 +93,7 @@ class ExpensesController extends Controller
         }
         else
         {
-            $docNameOneToStore = '';
+            $docNameOneToStore = $request->old_doc_1;
         }
         if($request->hasFile('document2'))
         {  
@@ -103,7 +103,7 @@ class ExpensesController extends Controller
         }
         else
         {
-            $docNameTwoToStore = '';
+            $docNameTwoToStore = $request->old_doc_1;
         }
 
         $update = Expense::find($request->requestid);
@@ -123,6 +123,18 @@ class ExpensesController extends Controller
         return back();
         
     }
+    public function removeDocument(Request $request, Expense $expense)
+    {
+       
+        $update = Expense::find($request->request_id);
+        $update->doc_1 = $request->doc_1;
+        $update->doc_2 = $request->doc_2;
+        $update->update();
+
+        return back();
+        
+    }
+
 
     /**
      * Remove the specified resource from storage.

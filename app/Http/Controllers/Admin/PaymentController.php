@@ -24,6 +24,14 @@ class PaymentController extends Controller
 {
     public function index(Request $request)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         abort_if(Gate::denies('payment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
@@ -77,6 +85,14 @@ class PaymentController extends Controller
 
     public function create()
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         abort_if(Gate::denies('payment_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $accounts = Account::all()->pluck('account_name', 'id')->prepend(trans('global.pleaseSelect'), '');
@@ -86,29 +102,45 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         $payment = Payment::create($request->all());
 
-        // /* Send SMS to Owners of the Account that has been credited*/
-        // $accountOwnersMobileNumbers = User::where('account_id',$request->account_id)->get()
-        //     ->pluck('mobile_number')->toArray();
-        // $date = Carbon::now()->format('d/m/Y');
-        // $time = Carbon::now()->format('H:i');
-        // $accountName = Account::where('id',$request->account_id)->pluck('account_name')->first();
-        // $ourRef = Payment::where('transaction_id',$request->transaction_id)->pluck('id')->first();
-        // //$paymentConfirmationSMS = $request->transaction_id." Confirmed. Ksh".number_format($request->amount)." credited to ".$accountName." on ".$date." at ".$time.".\nThank you,\nMUCUA Finance Team";
-        // $paymentConfirmationSMS = "Your contribution of Kshs. ".number_format($request->amount)." has been credited to ".$accountName." account on ".$date." at ".$time.
-        //     "\nOur Ref: ".$ourRef." and MPESA Ref:".$request->transaction_id.
-        //     ". For more, login to your account by clicking this link:- ".env('APP_URL').
-        //     "\n\nThank you,\n".env('APP_NAME')." Finance Team";
-        // //$paymentConfirmationSMS =  "Your contribution of Kshs. ".number_format($request->amount)." has been credited to ".$accountName." account on ".$date." at ".$time;
-        // smsapi()->gateway(env('SEND_SMS_API_GATEWAY'))->sendMessage($accountOwnersMobileNumbers,$paymentConfirmationSMS)->response(); // send SMS to Account owners
+        /* Send SMS to Owners of the Account that has been credited*/
+        $accountOwnersMobileNumbers = User::where('account_id',$request->account_id)->get()
+            ->pluck('mobile_number')->toArray();
+        $date = Carbon::now()->format('d/m/Y');
+        $time = Carbon::now()->format('H:i');
+        $accountName = Account::where('id',$request->account_id)->pluck('account_name')->first();
+        $ourRef = Payment::where('transaction_id',$request->transaction_id)->pluck('id')->first();
+        //$paymentConfirmationSMS = $request->transaction_id." Confirmed. Ksh".number_format($request->amount)." credited to ".$accountName." on ".$date." at ".$time.".\nThank you,\nMUCUA Finance Team";
+        $paymentConfirmationSMS = "Your contribution of Kshs. ".number_format($request->amount)." has been credited to ".$accountName." account on ".$date." at ".$time.
+            "\nOur Ref: ".$ourRef." and MPESA Ref:".$request->transaction_id.
+            ". For more, login to your account by clicking this link:- ".env('APP_URL').
+            "\n\nThank you,\n".env('APP_NAME')." Finance Team";
+        //$paymentConfirmationSMS =  "Your contribution of Kshs. ".number_format($request->amount)." has been credited to ".$accountName." account on ".$date." at ".$time;
+        smsapi()->gateway(env('SEND_SMS_API_GATEWAY'))->sendMessage($accountOwnersMobileNumbers,$paymentConfirmationSMS)->response(); // send SMS to Account owners
 
-        return redirect()->route('admin.accounts.myAccount');
+        return redirect()->route('admin.accounts.myAccount')->with('success','Payment made successfully');
 
     }
 
     public function edit(Payment $payment)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         abort_if(Gate::denies('payment_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $accounts = Account::all()->pluck('account_name', 'id')->prepend(trans('global.pleaseSelect'), '');
@@ -120,6 +152,14 @@ class PaymentController extends Controller
 
     public function update(Request $request, Payment $payment)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         $payment->update($request->all());
 
         return redirect()->route('admin.payments.index');
@@ -127,6 +167,14 @@ class PaymentController extends Controller
 
     public function show(Payment $payment)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         abort_if(Gate::denies('payment_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $payment->load('account');
@@ -136,6 +184,14 @@ class PaymentController extends Controller
 
     public function destroy(Payment $payment)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         abort_if(Gate::denies('payment_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $payment->delete();
@@ -145,6 +201,14 @@ class PaymentController extends Controller
 
     public function massDestroy(Request $request)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         Payment::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
@@ -152,6 +216,14 @@ class PaymentController extends Controller
 
     public function stkPush(Request $request)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         if($request->months_count_2 == 0)
         {
             $no_of_months = $request->months_count;
@@ -255,6 +327,14 @@ class PaymentController extends Controller
 
     public function getPaymentForm()
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         $CheckoutRequestID = '';
         $ResponseCode = 222;
         $CustomerMessage = '';
@@ -271,12 +351,28 @@ class PaymentController extends Controller
 
     public function confirmPayment(Request $request)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         $data4 = StkResponse::where('CheckoutRequestID',$request->id)->first();
         return response()->json($data4);
     }
 
     public function findMonth(Request $request)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         $data = Payment::where([['account_id',$request->account_id],['year', $request->year]])->get();
         $month = Month::all();
         return response()->json(array($data,$month));
@@ -284,6 +380,14 @@ class PaymentController extends Controller
 
     public function finishTransaction(Request $request)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         $received = json_decode($request->data);
         $months = $received[2];
 
@@ -304,6 +408,14 @@ class PaymentController extends Controller
     }
 
     public function sendSMS(Request $request){
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         $allUsersMobileNumbers = User::get()
             ->pluck('mobile_number')
             ->toArray();

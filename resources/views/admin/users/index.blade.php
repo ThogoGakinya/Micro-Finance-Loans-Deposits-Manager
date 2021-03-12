@@ -68,7 +68,7 @@
                             </td>
                             <td>
                                 @if(empty($user->account_id ?? ''))
-                                         <span class="badge badge-warning" title="No active account"><i class="fa fa-info"></i></span>
+                                         <span class="badge badge-danger" title="No active account"><i class="fa fa-info"></i></span>
                                 @else
                                          <span class="badge badge-success" title="Active account"><i class="fa fa-check"></i></span>
                                 @endif

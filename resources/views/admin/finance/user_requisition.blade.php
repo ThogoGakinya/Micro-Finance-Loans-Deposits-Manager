@@ -194,14 +194,24 @@
                                                         <label for="receipt"><u>Receipt 1</u></label>
                                                         @if($requisition->doc_1 == '')
                                                          <input type="file" class="form-control" name="document1"/>
+                                                         <input type="hidden" class="form-control" value ="{{$requisition->doc_1}}" name="old_doc_1"/>
                                                         @else
-                                                            <br/> <a href="" data-toggle="modal" data-target="#docs_doc1"><i class="fa fa-file"></i><small> {{$requisition->doc_1}}</small></a><br/><br/>
+                                                            <br/> <a href="" data-toggle="modal" data-target="#docs_doc1"><i class="fa fa-file"></i><small> {{$requisition->doc_1}}</small></a>
+                                                            @if($requisition->user_id == auth::user()->id)
+                                                            <i class="fa fa-times-circle" aria-hidden="true" data-toggle="modal" data-target="#remove_doc_1" title="Remove this attachment"></i>
+                                                            @endif<br/><br/>
+                                                            <input type="hidden" class="form-control" value ="{{$requisition->doc_1}}" name="old_doc_1"/>
                                                         @endif
                                                         <label for="receipt"><u>Receipt 2</u></label>
                                                         @if($requisition->doc_2 == '')
                                                          <input type="file" class="form-control" name="document2"/>
+                                                         <input type="hidden" class="form-control" value ="{{$requisition->doc_2}}" name="old_doc_2"/>
                                                         @else
-                                                        <br/> <a href="" data-toggle="modal" data-target="#docs_doc2"><i class="fa fa-file"></i><small> {{$requisition->doc_2}}</small></a><br/><br/>
+                                                            <br/> <a href="" data-toggle="modal" data-target="#docs_doc2"><i class="fa fa-file"></i><small> {{$requisition->doc_2}}</small></a>
+                                                            @if($requisition->user_id == auth::user()->id)
+                                                            <i class="fa fa-times-circle" aria-hidden="true" data-toggle="modal" data-target="#remove_doc_2" title="Remove this attachment"></i>
+                                                            @endif<br/><br/>
+                                                            <input type="hidden" class="form-control" value ="{{$requisition->doc_2}}" name="old_doc_2"/>
                                                         @endif
                                                     </div>
                                                    @endif
@@ -254,6 +264,62 @@
                                         </div>
                                     </div> 
                         <!-- End of Modal for viewing uploaded document -->
+                        <!-- Modal for removing attachment 1-->
+                        <div class="modal fade" id="remove_doc_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" align="center">Remove Attachement</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form method="post" action="{{route('admin.finance.remove',$requisition->id)}}" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        @method('put')
+                                        Are you sure you want to remove this Attachment?
+                                            <input type="hidden" class="form-control" name="request_id" id="remove_id" value="{{$requisition->id}}">
+                                            <input type="hidden" class="form-control" name="doc_1" id="document_id" value="">
+                                            <input type="text" class="form-control" name="doc_2" id="document_id" value="{{$requisition->doc_2}}">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal"> Not Now</button>
+                                        <button type="submit" class="btn btn-warning">Yes Remove</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Modal for removing attachment-->
+                        <!-- Modal for removing attachment 2-->
+                        <div class="modal fade" id="remove_doc_2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" align="center">Remove Attachement</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form method="post" action="{{route('admin.finance.remove',$requisition->id)}}" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        @method('put')
+                                        Are you sure you want to remove this Attachment?
+                                            <input type="hidden" class="form-control" name="request_id" id="remove_id" value="{{$requisition->id}}">
+                                            <input type="text" class="form-control" name="doc_1" id="document_id" value="{{$requisition->doc_1}}">
+                                            <input type="hidden" class="form-control" name="doc_2" id="document_id" value="">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal"> Not Now</button>
+                                        <button type="submit" class="btn btn-warning">Yes Remove</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Modal for removing attachment-->
                         @endforeach
                         
                         </tbody>

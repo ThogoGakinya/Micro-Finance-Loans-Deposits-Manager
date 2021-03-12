@@ -13,6 +13,14 @@ class AccountController extends Controller
 {
     public function index()
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         abort_if(Gate::denies('account_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $accounts = Account::all();
@@ -22,6 +30,14 @@ class AccountController extends Controller
 
     public function create()
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         abort_if(Gate::denies('account_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.accounts.create');
@@ -29,6 +45,14 @@ class AccountController extends Controller
 
     public function store(Request $request)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         $account = Account::create($request->all());
 
         return redirect()->route('admin.accounts.index');
@@ -36,6 +60,14 @@ class AccountController extends Controller
 
     public function edit(Account $account)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         //abort_if(Gate::denies('account_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.accounts.edit', compact('account'));
@@ -43,6 +75,14 @@ class AccountController extends Controller
 
     public function update(Request $request, Account $account)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         $account->update($request->all());
 
         return redirect()->route('admin.accounts.index');
@@ -50,6 +90,14 @@ class AccountController extends Controller
 
     public function show(Account $account)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         abort_if(Gate::denies('account_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $account->load('accountUsers', 'accountPayments');
@@ -59,6 +107,14 @@ class AccountController extends Controller
     }
     public function myAccount()
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         abort_if(Gate::denies('my_account'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $account_id = auth()->user()->account_id;
         $account= Account::where('id','=',$account_id)->with('accountUsers', 'accountPayments')->first();
@@ -67,6 +123,14 @@ class AccountController extends Controller
 
     public function destroy(Account $account)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         abort_if(Gate::denies('account_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $account->delete();
@@ -76,6 +140,14 @@ class AccountController extends Controller
 
     public function massDestroy(Request $request)
     {
+        if(session('success'))
+        {
+            toast('Success!','Request Submitted Successfully');
+        }
+        if(session('error'))
+        {
+            toast('Error', 'Error');
+        }
         Account::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);

@@ -28,7 +28,7 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="{{ asset('Documents/'.auth::user()->img_name)}}"
+                       src="{{ asset('Documents/Profiles/'.auth::user()->img_name)}}"
                        alt="User profile picture">
                 </div>
 
@@ -56,7 +56,7 @@
               
                 </ul>
 
-                <a class="btn btn-primary nav-link" href="#timeline" data-toggle="tab"><b>Edit Profile</b></a>
+                <a class="btn btn-primary nav-link" href="{{route('admin.users.profile')}}" ><b>Edit Profile</b></a>
               </div>
               <!-- /.card-body -->
             </div>
@@ -68,18 +68,23 @@
           </div>
           <!-- /.col -->
           <div class="col-md-9">
+          @if(!empty($message))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+          @endif
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Apps</a></li>
+                  <li class="nav-item"><a class="nav-link {{$homechecker}}" href="#activity" data-toggle="tab">Apps</a></li>
                   <li class="nav-item"><a class="nav-link" href="#payments" data-toggle="tab">Recent Payments</a></li>
                   <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Profile</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Change Password</a></li>
+                  <li class="nav-item"><a class="nav-link {{$passchecker}}" href="#settings" data-toggle="tab">Change Password</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
-                  <div class="active tab-pane" id="activity">
+                  <div class="{{$homechecker}} tab-pane" id="activity">
                     <!-- Post -->
                     <div class="container-fluid">
                     <div class="row">
@@ -165,23 +170,25 @@
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="timeline">
                     <!-- The profile -->
-                    <form method="post"  class="form-horizontal" action="" enctype="multipart/form-data">
-                    {{ csrf_field() }}
+                    <form method="POST" action="{{ route("admin.users.change-profile", [auth::user()->id]) }}" enctype="multipart/form-data">
+                     @method('PUT')
+                     @csrf
                    <div class="row">
                         <div class="col-md-4">
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle"
-                                src="{{asset('Documents/'.auth::user()->img_name)}}"
+                                src="{{asset('Documents/Profiles/'.auth::user()->img_name)}}"
                                 alt="User profile picture">
                             </div>
-                            <label for="password">{{ __('Change Profile Picture') }}</label>
+                            <label for="pic">{{ __('Change Profile Picture') }}</label>
                             
                                 <input  type="file" class="form-control" name="profile_picture" required><br/>
                                 <input  type="hidden" class="form-control" name="user_id" value="{{auth::user()->id}}"><br/>
                                 <button  type="submit" class="btn btn-success">Change Photo</button>
                    </form>  
-                   <form method="post"  class="form-horizontal" action="" enctype="multipart/form-data">
-                    {{ csrf_field() }} 
+                   <form method="POST" action="{{ route("admin.users.self-update", [auth::user()->id]) }}" enctype="multipart/form-data">
+                     @method('PUT')
+                     @csrf
                         </div>
                         <div class="col-md-8">
                           <div class="row">
@@ -199,6 +206,7 @@
                              </div>
                              <div class="col-md-8">
                                 <input  type="text" class="form-control" name="email" value="{{auth::user()->email}}">
+                                <input  type="hidden" class="form-control" name="user_id" value="{{auth::user()->id}}">
                              </div>
                           </div><br/>
                           <div class="row">
@@ -206,15 +214,15 @@
                                  Tel: 
                              </div>
                              <div class="col-md-8">
-                                <input  type="text" class="form-control" name="phone" value="{{auth::user()->phone}}">
+                                <input  type="text" class="form-control" name="mobile_number" value="{{auth::user()->mobile_number}}">
                              </div>
                           </div><br/>
                           <div class="row">
                              <div class="col-md-4" align="right">
-                                 Title: 
+                                 National ID: 
                              </div>
                              <div class="col-md-8">
-                                <input  type="text" class="form-control" name="title" value="{{auth::user()->title}}">
+                                <input  type="text" class="form-control" name="national_id" value="{{auth::user()->national_id}}">
                              </div>
                           </div><br/>
                           <div class="row">
@@ -253,9 +261,9 @@
                   </div>
                   <!-- /.tab-pane -->
 
-                  <div class="tab-pane" id="settings">
+                  <div class="tab-pane {{$passchecker}}" id="settings">
                   <div class="panel-body">
-                   <form method="POST" action=>
+                  <form method="POST" action="{{ route('admin.users.password') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -314,8 +322,8 @@
 <div class="modal fade" id="add-payment">
           <div class="modal-dialog">
             <div class="modal-content">
-            <div class="card">
-        <div class="card-header">Make a Payment
+            <div class="card card-secondary">
+        <div class="card-header"><i class="fa fa-plus"></i> Make a Payment
         </div>
 
         <div class="card-body">
@@ -336,7 +344,7 @@
                 <div class="form-group">
                     <label for="amount">Amount to Pay</label>
                     <input class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}" type="number"
-                           name="amount" id="amount" value="{{ old('amount', '') }}" step="0.01">
+                           name="amount" id="amount" value="{{ old('amount', '') }}" step="0.01" required>
                     @if($errors->has('amount'))
                         <span class="text-danger">{{ $errors->first('amount') }}</span>
                     @endif
@@ -344,23 +352,33 @@
                 <div class="form-group">
                     <label for="amount">MPESA ID</label>
                     <input class="form-control {{ $errors->has('transaction_id') ? 'is-invalid' : '' }}" type="text"
-                           name="transaction_id" id="transaction_id" value="{{ old('transaction_id', '') }}">
+                           name="transaction_id" id="transaction_id" value="{{ old('transaction_id', '') }}" required>
                     @if($errors->has('transaction_id'))
                         <span class="text-danger">{{ $errors->first('transaction_id') }}</span>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="month">Month</label>
-                    <input class="form-control {{ $errors->has('month') ? 'is-invalid' : '' }}" type="text" name="month"
-                           id="month" value="{{ old('month', '') }}">
+                   <select class="form-control" name="month" required>
+                     <option value="">Select Month</option>
+                     @foreach($months as $month)
+                     <option value="{{$month->id}}">{{$month->name}}</option>
+                     @endforeach
+
+                   </select>
                     @if($errors->has('month'))
                         <span class="text-danger">{{ $errors->first('month') }}</span>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="year">Year</label>
-                    <input class="form-control {{ $errors->has('year') ? 'is-invalid' : '' }}" type="text" name="year"
-                           id="year" value="{{ old('year', '') }}">
+                    <select class="form-control" name="year" required>
+                        <option value="">Select Year</option>
+                        <option value="2020">2020</option>
+                        <option value="2020">2021</option>
+                        <option value="2020">2022</option>
+                        
+                   </select>
                     @if($errors->has('year'))
                         <span class="text-danger">{{ $errors->first('year') }}</span>
                     @endif
