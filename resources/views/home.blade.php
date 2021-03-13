@@ -27,9 +27,14 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="{{ asset('Documents/Profiles/'.auth::user()->img_name)}}"
-                       alt="User profile picture">
+                    @if(!empty(auth::user()->img_name))
+                        <img class="profile-user-img img-fluid img-circle"
+                             src="{{ asset('Documents/Profiles/'.auth::user()->img_name)}}"
+                             alt="User profile picture">
+                    @else
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle"
+                             width="150">
+                    @endif
                 </div>
 
                 <h3 class="profile-username text-center">{{auth::user()->name}}</h3>
@@ -53,7 +58,7 @@
                   <!-- <li class="list-group-item">
                     <b>Extension</b> <a class="float-right">{{auth::user()->ext}}</a>
                   </li> -->
-              
+
                 </ul>
 
                 <a class="btn btn-primary nav-link" href="{{route('admin.users.profile')}}" ><b>Edit Profile</b></a>
@@ -176,16 +181,21 @@
                    <div class="row">
                         <div class="col-md-4">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle"
-                                src="{{asset('Documents/Profiles/'.auth::user()->img_name)}}"
-                                alt="User profile picture">
+                                @if(!empty(auth::user()->img_name))
+                                    <img class="profile-user-img img-fluid img-circle"
+                                         src="{{ asset('Documents/Profiles/'.auth::user()->img_name)}}"
+                                         alt="User profile picture">
+                                @else
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle"
+                                         width="150">
+                                @endif
                             </div>
                             <label for="pic">{{ __('Change Profile Picture') }}</label>
-                            
+
                                 <input  type="file" class="form-control" name="profile_picture" required><br/>
                                 <input  type="hidden" class="form-control" name="user_id" value="{{auth::user()->id}}"><br/>
                                 <button  type="submit" class="btn btn-success">Change Photo</button>
-                   </form>  
+                   </form>
                    <form method="POST" action="{{ route("admin.users.self-update", [auth::user()->id]) }}" enctype="multipart/form-data">
                      @method('PUT')
                      @csrf
@@ -193,7 +203,7 @@
                         <div class="col-md-8">
                           <div class="row">
                              <div class="col-md-4" align="right">
-                                 Name: 
+                                 Name:
                              </div>
                              <div class="col-md-8">
                                 <input  type="text" class="form-control" name="name" value="{{auth::user()->name}}">
@@ -202,7 +212,7 @@
                           </div><br/>
                           <div class="row">
                              <div class="col-md-4" align="right">
-                                 Email: 
+                                 Email:
                              </div>
                              <div class="col-md-8">
                                 <input  type="text" class="form-control" name="email" value="{{auth::user()->email}}">
@@ -211,7 +221,7 @@
                           </div><br/>
                           <div class="row">
                              <div class="col-md-4" align="right">
-                                 Tel: 
+                                 Tel:
                              </div>
                              <div class="col-md-8">
                                 <input  type="text" class="form-control" name="mobile_number" value="{{auth::user()->mobile_number}}">
@@ -219,7 +229,7 @@
                           </div><br/>
                           <div class="row">
                              <div class="col-md-4" align="right">
-                                 National ID: 
+                                 National ID:
                              </div>
                              <div class="col-md-8">
                                 <input  type="text" class="form-control" name="national_id" value="{{auth::user()->national_id}}">
@@ -339,7 +349,7 @@
                     <label for="amount">Your Account Name</label>
                     <input class="form-control" type="text" name="amount" id="amount" value="{{$account_name}}" readonly>
                     <input class="form-control" type="hidden" name="account_id"  value="{{auth::user()->account_id}}">
-                   
+
                 </div>
                 <div class="form-group">
                     <label for="amount">Amount to Pay</label>
@@ -377,7 +387,7 @@
                         <option value="2020">2020</option>
                         <option value="2020">2021</option>
                         <option value="2020">2022</option>
-                        
+
                    </select>
                     @if($errors->has('year'))
                         <span class="text-danger">{{ $errors->first('year') }}</span>
